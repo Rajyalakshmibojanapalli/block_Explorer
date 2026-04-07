@@ -10,7 +10,6 @@ import Proposals from "./pages/proposals/Proposals";
 import ProposalDetail from "./pages/proposals/ProposalDetails";
 import Blocks from "./pages/Blocks/Blocks";
 import LatestBlocks from "./pages/Blocks/LatestBlocks";
-import BlockDetail from "./pages/Blocks/BlockDetails";
 import BlockTransactions from "./pages/Blocks/BlockHeightTransactions"
 import Transactions from "./pages/Transactions/Trsansaction";
 import TransactionDetailPage from "./pages/Transactions/TransactionDetailPage";
