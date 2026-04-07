@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    font-family: "Inter", sans-serif;
+}
+.head{
+    font-family: "Space Grotesk", sans-serif;
+}
+.subhead{
+    font-family: "Manrope", sans-serif;
+}
