@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import { useGetTransactionsQuery, useSearchTransactionsQuery } from './transactionsApiSlice';
 import { useGetStatsQuery } from '../stats/statsApiSlice';
 import { useTheme } from '../../context/ThemeContext';
@@ -192,13 +192,13 @@ const TransactionsList = () => {
       key: 'height',
       header: 'Block',
       render: (value) => (
-        <a
-          href={`/blocks/${value}`}
+        <Link
+          to={`/blocks/${value}`}
           onClick={(e) => e.stopPropagation()}
-          className="text-[12px] text-[#006666] font-semibold hover:text-[#00b2bd]"
+          className="text-[12px] text-[#006666] font-semibold hover:text-[#00b2bd] hover:underline"
         >
           {value?.toLocaleString()}
-        </a>
+        </Link>
       ),
     },
     {

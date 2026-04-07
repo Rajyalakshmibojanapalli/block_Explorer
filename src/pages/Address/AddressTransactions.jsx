@@ -105,7 +105,7 @@ const AddressAssets = ({ address }) => {
       align: "right",
       render: (value) => (
         <Link
-          to={`/block/${value}`}
+          to={`/blocks/${value}`}
           className="text-[#006666] hover:text-[#00ffc8] font-semibold text-xs transition-colors"
         >
           {value?.toLocaleString()}
@@ -278,7 +278,7 @@ const AddressAssets = ({ address }) => {
       align: "right",
       render: (value) => (
         <Link
-          to={`/block/${value}`}
+          to={`/blocks/${value}`}
           className="text-[#00d4aa] hover:text-[#00ffc8] font-mono text-xs transition-colors"
         >
           {value?.toLocaleString()}

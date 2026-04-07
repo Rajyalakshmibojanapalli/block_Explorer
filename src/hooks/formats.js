@@ -122,12 +122,13 @@ const getTimeAgo = (timestamp) => {
     day: 86400,
     hour: 3600,
     min: 60,
+    sec: 1, // ← ADDED
   };
 
   for (const [key, value] of Object.entries(intervals)) {
     const interval = Math.floor(seconds / value);
     if (interval >= 1) {
-      return `${interval} ${key}${interval > 1 ? '' : ''} ago`;
+      return `${interval} ${key}${interval > 1 ? 's' : ''} ago`;
     }
   }
 

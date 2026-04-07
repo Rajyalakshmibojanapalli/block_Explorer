@@ -73,7 +73,7 @@ const AddressBankTransfers = ({ address }) => {
       align: "right",
       render: (value) => (
         <Link
-          to={`/block/${value}`}
+          to={`/blocsk/${value}`}
           className="text-[#00d4aa] hover:text-[#00ffc8] font-mono text-[13px] font-medium transition-colors"
         >
           {value?.toLocaleString()}

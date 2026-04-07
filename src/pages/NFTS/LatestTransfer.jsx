@@ -48,7 +48,7 @@ const NFTTransfers = () => {
       align: "right",
       render: (value) => (
         <Link
-          to={`/block/${value}`}
+          to={`/blocks/${value}`}
           className="text-[#006666] hover:text-[#00ffc8] font-semibold text-[13px] font-medium transition-colors duration-200 no-underline"
         >
           {value?.toLocaleString()}

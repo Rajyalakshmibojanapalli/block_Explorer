@@ -1,5 +1,6 @@
 // src/components/ui/Table.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import {
   Copy,
@@ -590,13 +591,13 @@ export const AddressLink = ({ address, truncateStart = 8, truncateEnd = 5, showC
 
   return (
     <div className="relative group/addr flex items-center gap-1">
-      <a
-        href={`/address/${address}`}
-        onClick={(e) => e.stopPropagation()}
-        className=" text-[12px] text-[#006666] font-semibold "
-      >
-        {truncated}
-      </a>
+      <Link
+  to={`/address/${address}`}
+  onClick={(e) => e.stopPropagation()}
+  className="text-[12px] text-[#006666] font-semibold"
+>
+  {truncated}
+</Link>
       {showCopy && <CopyButton text={address} />}
       {/* Tooltip */}
       <div
@@ -630,14 +631,14 @@ export const HashLink = ({ hash, to, truncateStart = 10, truncateEnd = 6, showCo
   return (
     <div className="flex items-center gap-2">
       {showStatus && <FileText  success={success}  size={14} color='#006666'/>}
-      <a
-        href={to || `/transactions/${hash}`}
-        onClick={(e) => e.stopPropagation()}
-        className=" text-[12px] text-[#006666] font-medium "
-        title={hash}
-      >
-        {truncated}
-      </a>
+    <Link
+  to={to || `/transactions/${hash}`}
+  onClick={(e) => e.stopPropagation()}
+  className="text-[12px] text-[#006666] font-medium"
+  title={hash}
+>
+  {truncated}
+</Link>
       {showCopy && <CopyButton text={hash} />}
     </div>
   );

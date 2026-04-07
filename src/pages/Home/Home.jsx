@@ -310,7 +310,7 @@ import { useGetHomeDataQuery, useLazySearchQuery } from "./homeApiSlice.js";
 import { useTheme } from "../../context/ThemeContext";
 import { Search, Images, Box, Newspaper, UserRoundCheck, Captions, CircleDollarSign, Wallet, Menu, TrendingUp, Timer, RefreshCw } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Added Link import
 import StatCard from "../../ui/HomeStat.jsx";
 import { formatTime, timeAgo, truncateHash, truncateAddress, formatMethod } from "../../hooks/formats.js";
 import LoadingSkeleton from "../../ui/LoadingSkeleton.jsx";
@@ -391,7 +391,7 @@ const Home = () => {
               } ${isFetching ? 'opacity-50' : ''}`}
               title="Refresh data"
             >
-              {/* <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} /> */}
+              <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} />
             </button>
           </div>
 
@@ -472,9 +472,9 @@ const Home = () => {
                   <span className="w-2 h-2 rounded-full bg-[#00b2bd] animate-pulse" />
                 )}
               </h2>
-              <a href="/blocks" className="text-sm text-[#006666] hover:underline font-semibold flex items-center gap-1">
+              <Link to="/blocks" className="text-sm text-[#006666] hover:underline font-semibold flex items-center gap-1">
                 View All
-              </a>
+              </Link>
             </div>
 
             <div className="divide-y divide-gray-100 dark:divide-gray-100">
@@ -494,12 +494,12 @@ const Home = () => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3">
-                        <a
-                          href={`/blocks/${block.height}`}
+                        <Link
+                          to={`/blocks/${block.height}`}
                           className="text-[#006666] text-sm font-semibold hover:underline"
                         >
                           {block.height?.toLocaleString()}
-                        </a>
+                        </Link>
                         <p className={`text-xs font-medium ${isDark ? "text-gray-500" : "text-gray-500"}`}>
                           {formatTime(block.time)}
                         </p>
@@ -540,9 +540,9 @@ const Home = () => {
                   <span className="w-2 h-2 rounded-full bg-[#00b2bd] animate-pulse" />
                 )}
               </h2>
-              <a href="/transactions" className="text-sm text-[#006666] hover:underline font-semibold flex items-center gap-1">
+              <Link to="/transactions" className="text-sm text-[#006666] hover:underline font-semibold flex items-center gap-1">
                 View All
-              </a>
+              </Link>
             </div>
 
             <div className="divide-y divide-gray-50 dark:divide-gray-100">
@@ -562,28 +562,28 @@ const Home = () => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-1">
-                        <a
-                          href={`/transactions/${tx.hash}`}
+                        <Link
+                          to={`/transactions/${tx.hash}`}
                           className="text-[#006666] text-xs font-semibold hover:underline"
                           title={tx.hash}
                         >
                           {truncateHash(tx.hash, 10, 4)}
-                        </a>
+                        </Link>
                         <p className={`text-xs mb-1 ${isDark ? "text-gray-600" : "text-gray-600"}`}>
                           {timeAgo(tx.timestamp)}
                         </p>
                       </div>
                       <p className={`text-xs mt-0.5 font-regular ${isDark ? "text-gray-600" : "text-gray-600"}`}>
                         From{" "}
-                        <a href={`/address/${tx.from_address}`} className="text-[#006666] hover:underline font-medium">
+                        <Link to={`/address/${tx.from_address}`} className="text-[#006666] hover:underline font-medium">
                           {truncateAddress(tx.from_address)}
-                        </a>
+                        </Link>
                         {tx.to_address && (
                           <>
                             {" "}To{" "}
-                            <a href={`/address/${tx.to_address}`} className="text-[#006666] hover:underline font-medium">
+                            <Link to={`/address/${tx.to_address}`} className="text-[#006666] hover:underline font-medium">
                               {truncateAddress(tx.to_address)}
-                            </a>
+                            </Link>
                           </>
                         )}
                       </p>
@@ -616,21 +616,21 @@ const Home = () => {
             icon={<UserRoundCheck className="w-6 h-6 text-[#006666]" />}
             title="Validators"
             description="Network nodes and consensus"
-            href="/validators"
+            href="/validators/leaderboard"
             isDark={isDark}
           />
           <FeatureCard
             icon={<Images className="w-6 h-6 text-[#006666]" />}
             title="NFTs"
             description="Collectibles and assets"
-            href="/nfts"
+            href="/nft/top"
             isDark={isDark}
           />
           <FeatureCard
             icon={<Captions className="w-6 h-6 text-[#006666]" />}
             title="Proposals"
             description="Governance and voting"
-            href="/proposals"
+            href="/governance"
             isDark={isDark}
           />
           <FeatureCard

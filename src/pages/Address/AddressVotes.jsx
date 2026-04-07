@@ -218,7 +218,7 @@ const AddressAssets = ({ address }) => {
       align: "right",
       render: (value) => (
         <Link
-          to={`/block/${value}`}
+          to={`/blocks/${value}`}
           className="text-[#006666] hover:text-[#00ffc8] font-mono text-xs transition-colors"
         >
           Block #{value?.toLocaleString()}

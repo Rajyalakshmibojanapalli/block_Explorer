@@ -96,7 +96,7 @@ const AddressNFTTransfers = ({ address }) => {
               align: "right",
               render: (value) => (
                 <Link
-                  to={`/block/${value}`}
+                  to={`/blocks/${value}`}
                   className="text-[#006666]  head hover:text-[#00ffc8] font-mono text-[13px] font-medium transition-colors"
                 >
                  JMC- {value?.toLocaleString()}
