@@ -55,8 +55,8 @@ const AddressCell = ({ address, label, startLen = 10, endLen = 6 }) => {
           fontWeight: 500,
           transition: "color 0.2s ease",
         }}
-        onMouseEnter={(e) => (e.target.style.color = "#00ffc8")}
-        onMouseLeave={(e) => (e.target.style.color = "#00d4aa")}
+        onMouseEnter={(e) => (e.target.style.color = "#000000")}
+        onMouseLeave={(e) => (e.target.style.color = "#006666")}
         title={address}
       >
         {truncateAddress(address, startLen, endLen)}
@@ -79,7 +79,7 @@ const AddressCell = ({ address, label, startLen = 10, endLen = 6 }) => {
           transition: "color 0.2s ease, background 0.2s ease",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.color = "#00d4aa";
+          e.currentTarget.style.color = "#006666";
           e.currentTarget.style.background = "rgba(0,212,170,0.1)";
         }}
         onMouseLeave={(e) => {

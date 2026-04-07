@@ -184,7 +184,6 @@
 // export default Pagination;
 
 
-
 // src/ui/Pagination.jsx
 import React from 'react';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
@@ -193,14 +192,17 @@ const Pagination = ({
   currentPage,
   totalPages,
   totalItems,
-  itemsPerPage,
+  itemsPerPage, // Accept itemsPerPage
+  perPage, // Also accept perPage for backward compatibility
   onPageChange,
   isDark = false,
   isLoading = false,
   showFirstLast = true,
   showInfo = true,
 }) => {
-  // Calculate page numbers to display
+  // ✅ Use whichever prop is provided
+  const itemsPer = itemsPerPage || perPage || 10;
+
   const getPageNumbers = () => {
     const delta = 2;
     const pages = [];
@@ -239,8 +241,8 @@ const Pagination = ({
   const handleLastPage = () => onPageChange(totalPages);
   const handlePageClick = (page) => onPageChange(page);
 
-  const startItem = (currentPage - 1) * itemsPerPage + 1;
-  const endItem = Math.min(currentPage * itemsPerPage, totalItems);
+  const startItem = (currentPage - 1) * itemsPer + 1;
+  const endItem = Math.min(currentPage * itemsPer, totalItems);
 
   const buttonClass = (disabled, active = false) => {
     const base = 'transition-colors rounded-md';
@@ -270,7 +272,8 @@ const Pagination = ({
     }`}>
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Info text */}
-      
+       
+
         {/* Pagination controls */}
         <div className="flex items-center gap-2">
           {/* First page */}
