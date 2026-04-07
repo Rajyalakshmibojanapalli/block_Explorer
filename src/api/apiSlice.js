@@ -1,3 +1,4 @@
+// src/api/apiSlice.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
@@ -7,11 +8,11 @@ const baseQuery = fetchBaseQuery({
 export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery,
-  tagTypes: ["Home" , "Search", "Block", "Transaction", "Address"],
+  tagTypes: ["Home", "Search", "Block", "Transaction", "Address"],
   refetchOnFocus: true,
   refetchOnReconnect: true,
   refetchOnMountOrArgChange: 30,
-    keepUnusedDataFor: 60,
+  keepUnusedDataFor: 60,
   endpoints: (builder) => ({}),
 });
 
