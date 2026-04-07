@@ -880,7 +880,7 @@ const BlocksList = () => {
       header: 'Amount',
       render: (value) => (
         <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-          {value || '0'} JMC
+          {value/1000000 || '0'} JMC
         </span>
       ),
       align: 'right',

@@ -637,7 +637,7 @@ const Home = () => {
             icon={<CircleDollarSign className="w-6 h-6 text-[#006666]" />}
             title="Tokens"
             description="Native and bridged tokens"
-            href="/tokens"
+            href="/transactions"
             isDark={isDark}
           />
         </div>

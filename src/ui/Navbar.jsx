@@ -810,6 +810,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { useLazySearchQuery } from "../pages/Home/homeApiSlice"; // Add this import
+import WalletConnect from "../pages/socket/WalletConnect";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -1406,7 +1407,7 @@ const truncateAddress = (address) => {
               </span>
             </div> */}
 {/* Wallet Connect Button - Desktop */}
-<div className="wallet-button">
+{/* <div className="wallet-button">
   {!isWalletConnected ? (
     <button
       onClick={connectWallet}
@@ -1495,7 +1496,8 @@ const truncateAddress = (address) => {
       </button>
     </div>
   )}
-</div>
+</div> */}
+<WalletConnect/>
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
