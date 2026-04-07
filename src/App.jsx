@@ -21,7 +21,7 @@ import TopMints from "./pages/NFTS/TopMints";
 import LatestTransfer from "./pages/NFTS/LatestTransfer";
 import LatestTrends from "./pages/NFTS/LatestTrends";
 import LatestMints from "./pages/NFTS/LatestMints";
-import AddressDetails from "./pages/address/AddressDetails";
+import AddressDetails from "./pages/Address/AddressDetails";
 
 function App() {
   return (
