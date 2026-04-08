@@ -60,11 +60,21 @@ export { formatTime };
 
 function formatMethod(method) {
   if (!method) return 'Transfer';
+  
+  // Extract the last part after the last dot
   const parts = method.replace(/^\//, '').split('.');
   const raw = parts[parts.length - 1] || method;
+  
+  // Remove 'Msg' prefix
   const cleaned = raw.replace(/^Msg/, '');
-  return cleaned.replace(/([A-Z])/g, ' $1').trim();
+  
+  // Add spaces before capital letters and get first word
+  const formatted = cleaned.replace(/([A-Z])/g, ' $1').trim();
+  
+  // Return only the first word
+  return formatted.split(' ')[0];
 }
+
 export { formatMethod };
 
 const METHOD_COLOR = '#006666';
@@ -95,7 +105,7 @@ export { getMethodColor };
 
 function formatAmount(amount) {
   if (!amount) return '0';
-  return (parseFloat(amount) / 1000000).toFixed(6);
+  return (parseFloat(amount) / 1000000).toFixed(4);
 }
 export { formatAmount };
 
@@ -103,7 +113,7 @@ function parseFee(fee) {
   if (!fee) return '0.000000';
   const num = parseFloat(fee);
   if (isNaN(num)) return '0.000000';
-  return (num / 1000000).toFixed(6);
+  return (num / 1000000).toFixed(4);
 }
 export { parseFee };
 
@@ -145,7 +155,7 @@ const formatJMC = (val) => {
 
   return (num / 1_000_000).toLocaleString(undefined, {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 6,
+    maximumFractionDigits: 4,
   });
 };
 export { formatJMC };

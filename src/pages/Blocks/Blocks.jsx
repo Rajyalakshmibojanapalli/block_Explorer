@@ -719,7 +719,7 @@ import Pagination from '../../ui/Pagination';
 import BlockStatsModal from './BlockStatsModal';
 import { Link } from 'react-router-dom';
 import AddressCell from '../../ui/AddressCell';
-
+import { TimeAgo } from '../../ui/Table';
 const BlocksList = () => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -826,15 +826,13 @@ const BlocksList = () => {
         </button>
       ),
       width: '100px',
+       align: 'center',
     },
     {
       key: 'time',
       header: 'Age',
-      render: (value) => (
-        <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-          {getTimeAgo(value)}
-        </div>
-      ),
+      render: (value) => <TimeAgo timestamp={value} />,
+       align: 'center',
     },
     {
       key: 'proposer_address',
@@ -853,6 +851,7 @@ const BlocksList = () => {
           </p>
         </Link>
       ),
+       align: 'center',
     },
     {
       key: 'displayTxCount',
@@ -873,21 +872,21 @@ const BlocksList = () => {
           {value}
         </p>
       ),
-      align: 'right',
+      align: 'center',
     },
     {
       key: 'total_amount_sent',
-      header: 'Amount',
+      header: 'Total Amount',
       render: (value) => (
-        <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+        <span className={`text-sm  font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
           {(value/1000000).toFixed(2) || '0'} JMC
         </span>
       ),
-      align: 'right',
+      align: 'center',
     },
    {
   key: 'reward',
-  header: 'Reward',
+  header: 'Block Reward',
   render: (value) => {
     const formatJMC = (val) => {
       if (!val) return "0.00";
@@ -911,7 +910,7 @@ const BlocksList = () => {
       </span>
     );
   },
-  align: 'right',
+  align: 'center',
 }
   ];
 

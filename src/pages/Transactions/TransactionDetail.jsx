@@ -7,7 +7,7 @@ import {
   useGetInternalTransactionsByHashQuery
 } from './transactionsApiSlice';
 import { useTheme } from '../../context/ThemeContext';
-import { timeAgo, getMethodColor, formatMethod, formatTime, formatTimestamp, parseFee, formatAmount } from '../../hooks/formats';
+import { timeAgo, getMethodColor, formatMethod, formatTime, formatTimestamp, parseFee, formatAmount, formatJMC } from '../../hooks/formats';
 import {
   ArrowLeft,
   CheckCircle,
@@ -16,8 +16,9 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import CopyBtn from '../../ui/CopyButton';
-import { Badge } from "../../ui/Table";
+import { Badge, DirectionArrow } from "../../ui/Table";
 import Table from '../../ui/Table';
+import { Link, Links } from 'react-router-dom';
 
 // Tooltip Component
 const Tooltip = ({ text, children, isDark }) => (
@@ -210,12 +211,12 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
 
         {/* Block */}
         <DetailRow isDark={isDark} label="Block" tooltip="Block number containing this transaction">
-          <a
-            href={`/blocks/${tx.height}`}
+          <Link
+            to={`/blocks/${tx.height}`}
             className="text-sm text-[#00b2bd] hover:underline font-medium"
           >
             {tx.height?.toLocaleString()}
-          </a>
+          </Link>
         </DetailRow>
 
         {/* Timestamp */}
@@ -241,12 +242,12 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
         {/* From */}
         <DetailRow isDark={isDark} label="From" tooltip="Sender address">
           <div className="flex items-center gap-3">
-            <a
-              href={`/address/${tx.from_address}`}
+            <Link
+              to={`/address/${tx.from_address}`}
               className="text-sm text-[#00b2bd] hover:underline font-medium break-all"
             >
               {tx.from_address}
-            </a>
+            </Link>
             <CopyBtn text={tx.from_address} isDark={isDark} />
           </div>
         </DetailRow>
@@ -255,12 +256,12 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
         <DetailRow isDark={isDark} label="To" tooltip="Receiver address">
           {tx.to_address ? (
             <div className="flex items-center gap-3">
-              <a
-                href={`/address/${tx.to_address}`}
+              <Link
+                to={`/address/${tx.to_address}`}
                 className="text-sm text-[#00b2bd] hover:underline font-medium break-all"
               >
                 {tx.to_address}
-              </a>
+              </Link>
               <CopyBtn text={tx.to_address} isDark={isDark} />
             </div>
           ) : (
@@ -280,13 +281,13 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
                       #{index + 1}
                     </span>
 
-                    <a
-                      href={`/address/${transfer.from_address}`}
+                    <Link
+                      to={`/address/${transfer.from_address}`}
                       className="text-[10px] text-[#00b2bd] hover:underline font-semibold"
                       title={transfer.from_address}
                     >
                       {transfer.from_address}
-                    </a>
+                    </Link>
 
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center ${isDark ? 'bg-gray-600/50' : 'bg-gray-200'}`}>
                       <svg
@@ -299,13 +300,13 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
                       </svg>
                     </div>
 
-                    <a
-                      href={`/address/${transfer.to_address}`}
+                    <Link
+                      to={`/address/${transfer.to_address}`}
                       className="text-[10px] text-[#00b2bd] hover:underline font-semibold"
                       title={transfer.to_address}
                     >
                       {transfer.to_address}
-                    </a>
+                    </Link>
                   </div>
 
                   <div className={`text-xs font-semibold head ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
@@ -462,6 +463,7 @@ const InternalTransactionsTab = ({ data, error, isLoading, isDark }) => {
     {
       key: 'index',
       header: '#',
+      align: "center",
       render: (value) => (
         <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
           {value}
@@ -472,34 +474,45 @@ const InternalTransactionsTab = ({ data, error, isLoading, isDark }) => {
     {
       key: 'from_address',
       header: 'From',
+      align: "center",
       render: (value) => (
-        <a
-          href={`/address/${value}`}
+        <Link
+          to={`/address/${value}`}
           className="text-xs text-[#00b2bd] hover:underline break-all"
           title={value}
         >
           {value}
-        </a>
+        </Link>
       ),
+    },
+    {
+      key: 'direction',
+      header: '',
+      align: 'center',
+      width: 'w-8',
+      sortable: false,
+      render: () => <DirectionArrow />,
     },
     {
       key: 'to_address',
       header: 'To',
+      align: "center",
       render: (value) => (
-        <a
-          href={`/address/${value}`}
+        <Link
+          to={`/address/${value}`}
           className="text-xs text-[#00b2bd] hover:underline break-all"
           title={value}
         >
           {value}
-        </a>
+        </Link>
       ),
     },
     {
       key: 'displayAmount',
       header: 'Value',
+      align: "center",
       render: (value, row) => (
-        <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+        <span className={`text-xs head font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
           {value} <span className={isDark ? 'text-gray-500' : 'text-gray-500'}>{row.displayDenom}</span>
         </span>
       ),
@@ -618,14 +631,17 @@ const LogsTab = ({ data, error, isLoading, isDark }) => {
     );
   }
 
-  let logs = [];
+  let allLogs = [];
   if (Array.isArray(data)) {
-    logs = data;
+    allLogs = data;
   } else if (data && data.logs && Array.isArray(data.logs)) {
-    logs = data.logs;
+    allLogs = data.logs;
   } else if (data && data.count && data.count > 0) {
-    logs = data.logs || [];
+    allLogs = data.logs || [];
   }
+
+  // Filter out "tx" event types
+  const logs = allLogs.filter(log => log.event_type !== 'tx');
 
   if (logs.length === 0) {
     return (
@@ -675,7 +691,10 @@ const LogsTab = ({ data, error, isLoading, isDark }) => {
 
             {/* Event Type */}
             <div className="col-span-2">
-              <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold ${getEventTypeColor(log.event_type, isDark)}`}>
+              <span className={`inline-flex items-center px-2 py-1 rounded-lg text-xs font-semibold ${isDark
+                  ? 'bg-[#00b2bd]/10 text-[#00b2bd] border border-[#00b2bd]/20'
+                  : 'bg-[#00b2bd]/10 text-[#00b2bd] border border-[#00b2bd]/20'
+                }`}>
                 {log.event_type}
               </span>
             </div>
@@ -686,19 +705,19 @@ const LogsTab = ({ data, error, isLoading, isDark }) => {
                 <div className="space-y-1">
                   {log.topics.map((topic, i) => (
                     <div key={i} className="flex gap-2">
-                      <span className={`font-semibold ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+                      <span className={`font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         {topic.key}:
                       </span>
                       {isAddress(topic.value) ? (
-                        <a
-                          href={`/address/${topic.value}`}
-                          className="text-[#00b2bd] hover:underline font-mono break-all"
+                        <Link
+                          to={`/address/${topic.value}`}
+                          className="text-[#00b2bd] head hover:underline font-semibold break-all"
                           title={topic.value}
                         >
                           {topic.value.slice(0, 20)}...{topic.value.slice(-8)}
-                        </a>
+                        </Link>
                       ) : (
-                        <span className={`font-mono break-all ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <span className={`font-semibold head break-all ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           {topic.value}
                         </span>
                       )}
@@ -716,20 +735,20 @@ const LogsTab = ({ data, error, isLoading, isDark }) => {
                 <div className="space-y-1">
                   {log.data.map((item, i) => (
                     <div key={i} className="flex gap-2">
-                      <span className={`font-semibold ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>
+                      <span className={`font-semibold ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                         {item.key}:
                       </span>
                       {isAddress(item.value) ? (
-                        <a
-                          href={`/address/${item.value}`}
-                          className="text-[#00b2bd] hover:underline font-mono break-all"
+                        <Link
+                          to={`/address/${item.value}`}
+                          className="text-[#00b2bd] hover:underline font-semibold rounded-full"
                           title={item.value}
                         >
                           {item.value.slice(0, 20)}...{item.value.slice(-8)}
-                        </a>
+                        </Link>
                       ) : (
-                        <span className={`font-mono break-all ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                          {item.value}
+                        <span className={`font-semibold head break-all ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                          {formatJMC(item.value)} JMC
                         </span>
                       )}
                     </div>
@@ -745,12 +764,13 @@ const LogsTab = ({ data, error, isLoading, isDark }) => {
       </div>
 
       {/* Footer */}
-      <div className={`px-4 py-2 border-t text-xs ${isDark ? 'border-gray-700 bg-gray-900 text-gray-500' : 'border-gray-200 bg-gray-50 text-gray-600'}`}>
-        Showing {logs.length} log{logs.length !== 1 ? 's' : ''} for transaction {data.tx_hash}
-      </div>
+
     </div>
   );
 };
+
+
+
 
 // ═══════════════════════════════════════════════════════════
 // HELPER COMPONENTS
@@ -763,12 +783,12 @@ const DetailField = ({ label, value, mono, copy, link, isDark }) => (
     </p>
     <div className="flex items-center gap-2">
       {link ? (
-        <a
-          href={link}
+        <Link
+          to={link}
           className={`text-xs ${mono ? 'font-mono' : ''} text-[#00b2bd] hover:underline break-all`}
         >
           {value}
-        </a>
+        </Link>
       ) : (
         <span className={`text-xs ${mono ? 'font-mono' : ''} ${isDark ? 'text-gray-400' : 'text-gray-600'} break-all`}>
           {value}

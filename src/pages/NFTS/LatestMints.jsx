@@ -38,12 +38,13 @@ const NFTLatestMints = () => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+      align: "center",
       render: (value) => <TxHashCell hash={value} />,
     },
- {
+    {
       key: "height",
       header: "Block",
-      align: "right",
+      align: "center",
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
@@ -53,70 +54,71 @@ const NFTLatestMints = () => {
         </Link>
       ),
     },
-     {
+    {
       key: "timestamp",
       header: "Age",
-      align: "right",
+      align: "center",
       render: (value) => (
         <div className="">
           <span className="text-gray-800 text-xs font-medium">
             {timeAgo(value)}
           </span>
-         
+
         </div>
       ),
     },
     {
       key: "to_address",
       header: "Minter",
+      align: "center",
       render: (value) => <AddressCell address={value} />,
     },
-   
-     {
-          key: "type",
-          header: "Type",
-          align: "right",
-          render: (value) => (
+
+    {
+      key: "type",
+      header: "Type",
+      align: "center",
+      render: (value) => (
+        <span
+          className="text-gray-700 font-semibold head text-xs "
+          title={value}
+        >
+          JMC-{(value)}
+        </span>
+      ),
+    },
+
+    {
+      key: "token_id",
+      header: "Token",
+      align: "center",
+      render: (value, row) => (
+        <Link
+          to={`/nft/collection/${row.contract_address}`}
+          className="hover:opacity-80 transition-opacity"
+        >
+          <div className=" gap-1 cursor-pointer">
             <span
-              className="text-gray-700 font-semibold head text-xs "
-              title={value}
+              className={`inline-block px-2 py-1 rounded-lg border text-xs font-semibold ${row.action === "mint"
+                  ? "bg-[#e5f7f8] border-[#006666] text-[#006666] hover:bg-[#d0f0f2]"
+                  : "bg-[#e5f7f8] border-[#006666] text-[#006666] hover:bg-[#d0f0f2]"
+                } transition-colors`}
             >
-              JMC-{(value)}
+              {value || "—"}
             </span>
-          ),
-        },
-        
-        {
-          key: "token_id",
-          header: "Token",
-          render: (value, row) => (
-            <Link 
-              to={`/nft/collection/${row.contract_address}`}
-              className="hover:opacity-80 transition-opacity"
+            <p
+              className={`text-[10px] font-semibold m-0 truncate hover:text-blue-600 transition-colors `}
+              title={row.contract_address}
             >
-              <div className="flex flex-col gap-1 cursor-pointer">
-                <span
-                  className={`inline-block px-2 py-1 rounded-lg border text-xs font-semibold ${
-                    row.action === "mint"
-                      ? "bg-[#e5f7f8] border-[#006666] text-[#006666] hover:bg-[#d0f0f2]"
-                      : "bg-[#e5f7f8] border-[#006666] text-[#006666] hover:bg-[#d0f0f2]"
-                  } transition-colors`}
-                >
-                  {value || "—"}
-                </span>
-                <p 
-                  className={`text-[10px] font-semibold m-0 truncate hover:text-blue-600 transition-colors `}
-                  title={row.contract_address}
-                >
-                  {truncateAddress(row.contract_address, 6, 4)}
-                </p>
-              </div>
-            </Link>
-          ),
-        },
-    
-   
-   
+              {truncateAddress(row.contract_address, 6, 4)}
+            </p>
+          </div>
+        </Link>
+      ),
+    },
+
+
+
   ];
 
   return (
@@ -124,17 +126,17 @@ const NFTLatestMints = () => {
       {/* ── Header ─────────────────────────────────────── */}
       <div className="flex items-center justify-between mb-7 flex-wrap gap-4">
         <div className="flex items-center gap-4">
-         
+
           <div>
             <h1 className="text-[22px] font-bold text-black tracking-tight m-0">
-               NFT Latest Mints
+              NFT Latest Mints
             </h1>
             <p className="text-[13px] text-slate-500 mt-1 m-0">
               Real-time analysis of the most active digital collections on-chain.
             </p>
           </div>
         </div>
-        
+
       </div>
 
       {/* ── Content ────────────────────────────────────── */}

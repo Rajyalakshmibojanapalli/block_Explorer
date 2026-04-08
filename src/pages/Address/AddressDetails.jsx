@@ -108,17 +108,17 @@ const AddressDetails = () => {
   return (
     <div className={`min-h-screen ${isDark ? 'bg-gray-900' : 'bg-[#f5f7f9]'}`}>
       {/* Back Button Header */}
-      <div className={`border-b ${isDark ? 'bg-gray-800/50 border-gray-700' : 'bg-white border-gray-200'}`}>
+      {/* <div className={`border-b ${isDark ? 'bg-gray-800/50 border-gray-700' : 'bg-white border-gray-200'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
             onClick={() => navigate(-1)}
-            className={`flex items-center gap-2 text-sm font-medium ${isDark ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}
+            className={`flex items-center gap-2 text-sm font-medium ${isDark ? 'text-[#006666] hover:text-blue-300' : 'text-[#006666] hover:text-blue-700'}`}
           >
             <ArrowLeft className="w-4 h-4" />
             Back
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
@@ -133,7 +133,17 @@ const AddressDetails = () => {
       isDark ? 'bg-[#161b22]' : 'bg-[#f8f9fa]'
     }`}>
        {/* <s
-        */}
+        */}<button
+  onClick={() => navigate(-1)}
+  className={`flex items-center gap-2 px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200
+    ${isDark 
+      ? 'bg-[#0f2f2f] text-[#00cccc] hover:bg-[#123f3f]' 
+      : 'bg-[#e6f7f7] text-[#006666] hover:bg-[#d0f0f0]'
+    }`}
+>
+  <ArrowLeft className="w-4 h-4" />
+  Back
+</button>
       {/* Address */}
       <code className={`flex-1 head text-sm sm:text-sm font-semibold break-all ${
         isDark ? 'text-white' : 'text-[#006666]'

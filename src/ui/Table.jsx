@@ -17,7 +17,6 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-
 const Table = ({
   columns = [],
   data = [],
@@ -220,9 +219,9 @@ const Table = ({
                   key={row[rowKey] || rowIndex}
                   onClick={() => onRowClick?.(row)}
                   className={`
-                    transition-all duration-200
-                    ${onRowClick ? 'cursor-pointer' : ''}
-                    ${striped
+        transition-all duration-200
+        ${onRowClick ? 'cursor-pointer' : ''}
+        ${striped
                       ? rowIndex % 2 === 0
                         ? isDark
                           ? 'bg-gray-900'
@@ -234,29 +233,34 @@ const Table = ({
                         ? 'bg-gray-900'
                         : 'bg-white'
                     }
-                    ${hoverable
+        ${hoverable
                       ? isDark
                         ? 'hover:bg-gray-700/50'
                         : 'hover:bg-gray-100'
                       : ''
                     }
-                    ${rowIndex !== data.length - 1
+        ${rowIndex !== data.length - 1
                       ? isDark
-                        ? 'border-b border-gray-200'
+                        ? 'border-b border-gray-700'
                         : 'border-b border-gray-100'
                       : ''
                     }
-                    group
-                  `}
+        group
+      `}
                 >
                   {columns.map((col, colIndex) => (
                     <td
                       key={col.key || colIndex}
                       className={`
-                        ${compact ? 'px-3 py-2' : 'px-4 py-3'}
-                        ${col.align === 'center' ? 'text-center' : col.align === 'right' ? 'text-center' : 'text-center'}
-                        ${col.className || ''}
-                      `}
+            ${compact ? 'px-3 py-2' : 'px-4 py-3'}
+            ${col.align === 'center'
+                          ? 'text-center'
+                          : col.align === 'right'
+                            ? 'text-right'
+                            : 'text-left'
+                        }
+            ${col.className || ''}
+          `}
                     >
                       {col.render
                         ? col.render(row[col.key], row, rowIndex)
@@ -478,7 +482,6 @@ const TableEmpty = ({ isDark, icon, title, message }) => (
   </div>
 );
 
-
 export const CopyButton = ({ text }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
@@ -502,7 +505,7 @@ export const CopyButton = ({ text }) => {
   );
 };
 
-export const Badge = ({ children, color = 'gray', className = '' }) => {
+export const Badge = ({ children, color = 'gray', className = '', size = 'md' }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -521,6 +524,15 @@ export const Badge = ({ children, color = 'gray', className = '' }) => {
     primary: isDark ? 'bg-[#f0fdfa] text-[#00b2bd] border-[#00b2bd]' : 'bg-[#f0fdfa] text-[#00b2bd] border-[#00b2bd]/20',
   };
 
+  // Size variants
+  const sizeMap = {
+    xs: 'min-w-[60px] px-2 py-1 text-[9px]',
+    sm: 'min-w-[70px] px-2.5 py-1 text-[10px]',
+    md: 'min-w-[80px] px-3 py-1.5 text-[11px]',
+    lg: 'min-w-[100px] px-3.5 py-2 text-xs',
+    xl: 'min-w-[120px] px-4 py-2 text-sm',
+  };
+
   // Check if color is a hex code
   const isHexColor = color?.startsWith('#');
 
@@ -528,14 +540,14 @@ export const Badge = ({ children, color = 'gray', className = '' }) => {
   if (isHexColor) {
     return (
       <span
-        className={`inline-block px-2 py-[3px] rounded-lg text-[10px] font-semibold border ${className}`}
+        className={`inline-flex items-center justify-center rounded-lg font-semibold border ${sizeMap[size]} ${className}`}
         style={{
           backgroundColor: '#f0fdfa',
           color: color,
           borderColor: `#96f7e4`,
         }}
       >
-        {children}
+        <span className="truncate">{children}</span>
       </span>
     );
   }
@@ -544,12 +556,13 @@ export const Badge = ({ children, color = 'gray', className = '' }) => {
   return (
     <span
       className={`
-        inline-block px-2 py-[3px] rounded text-[10px] font-semibold border
+        inline-flex items-center justify-center rounded-lg font-semibold border
         ${colorMap[color] || colorMap.gray}
+        ${sizeMap[size]}
         ${className}
       `}
     >
-      {children}
+      <span className="truncate">{children}</span>
     </span>
   );
 };
@@ -590,14 +603,14 @@ export const AddressLink = ({ address, truncateStart = 8, truncateEnd = 5, showC
     : address;
 
   return (
-    <div className="relative group/addr flex items-center gap-1">
+    <div className="relative group/addr inline-flex items-center gap-1">
       <Link
-  to={`/address/${address}`}
-  onClick={(e) => e.stopPropagation()}
-  className="text-[12px] text-[#006666] font-semibold"
->
-  {truncated}
-</Link>
+        to={`/address/${address}`}
+        onClick={(e) => e.stopPropagation()}
+        className="text-[12px] text-[#006666] font-semibold"
+      >
+        {truncated}
+      </Link>
       {showCopy && <CopyButton text={address} />}
       {/* Tooltip */}
       <div
@@ -629,16 +642,16 @@ export const HashLink = ({ hash, to, truncateStart = 10, truncateEnd = 6, showCo
     : hash;
 
   return (
-    <div className="flex items-center gap-2">
-      {showStatus && <FileText  success={success}  size={14} color='#006666'/>}
-    <Link
-  to={to || `/transactions/${hash}`}
-  onClick={(e) => e.stopPropagation()}
-  className="text-[12px] text-[#006666] font-medium"
-  title={hash}
->
-  {truncated}
-</Link>
+    <div className="inline-flex items-center gap-2">
+      {showStatus && <FileText success={success} size={14} color='#006666' />}
+      <Link
+        to={to || `/transactions/${hash}`}
+        onClick={(e) => e.stopPropagation()}
+        className="text-[12px] text-[#006666] font-medium"
+        title={hash}
+      >
+        {truncated}
+      </Link>
       {showCopy && <CopyButton text={hash} />}
     </div>
   );
@@ -689,15 +702,15 @@ export const TimeAgo = ({ timestamp, showIcon = true }) => {
 
   return (
     <span
-      className={`flex items-center gap-1 text-[12px] font-semibold ${isDark ? 'text-gray-400' : 'text-gray-700'}`}
+      className={`inline-flex items-center gap-1 text-xs font-semibold whitespace-nowrap ${isDark ? 'text-gray-400' : 'text-gray-700'}`}
       title={new Date(timestamp).toLocaleString()}
     >
       {showIcon && (
-        <svg className="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-3 h-3 opacity-40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )}
-      {getTimeAgo(timestamp)}
+      <span className="whitespace-nowrap">{getTimeAgo(timestamp)}</span>
     </span>
   );
 };
@@ -716,7 +729,7 @@ export const DirectionArrow = () => {
         }
       `}
     >
-      <ArrowRight  className="w-3 h-3" />
+      <ArrowRight className="w-3 h-3" />
     </span>
   );
 };

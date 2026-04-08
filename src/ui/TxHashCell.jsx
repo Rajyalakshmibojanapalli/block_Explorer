@@ -29,7 +29,7 @@ const TxHashCell = ({ hash, startLen = 8, endLen = 6 }) => {
         style={{
           color: "#475569",
           fontStyle: "italic",
-          fontSize: "13px",
+          fontSize: "12px",
         }}
       >
         —
@@ -50,8 +50,7 @@ const TxHashCell = ({ hash, startLen = 8, endLen = 6 }) => {
         style={{
           color: "#006666",
           textDecoration: "none",
-          // fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "13px",
+          fontSize: "12px",
           fontWeight: 500,
           transition: "color 0.2s ease",
         }}

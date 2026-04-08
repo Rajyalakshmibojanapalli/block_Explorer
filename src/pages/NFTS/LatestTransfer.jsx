@@ -12,7 +12,7 @@ import Pagination from "../../ui/Pagination";
 import LoadingSkeleton from "../../ui/LoadingSkeleton";
 import AddressCell from "../../ui/AddressCell";
 import TxHashCell from "../../ui/TxHashCell";
-import Table from "../../ui/Table";
+import Table, { TimeAgo } from "../../ui/Table";
 
 const PER_PAGE = 12;
 
@@ -35,17 +35,19 @@ const NFTTransfers = () => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+      align: "center",
       render: (value) => <TxHashCell hash={value} />,
     },
     {
       key: "action",
       header: "Action",
+      align: "center",
       render: (value) => <ActionBadge action={value} />,
     },
     {
       key: "height",
       header: "Height",
-      align: "right",
+      align: "center",
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
@@ -58,14 +60,8 @@ const NFTTransfers = () => {
     {
       key: "timestamp",
       header: "Age",
-      align: "right",
-      render: (value) => (
-        <span
-          className="text-slate-500 text-xs whitespace-nowrap"
-          title={value}
-        >
-          {timeAgo(value)}
-        </span>
+      align: "center",
+      render: (value) => (<TimeAgo timestamp={(value)}/>
       ),
     },
 
@@ -73,6 +69,7 @@ const NFTTransfers = () => {
     {
       key: "from_address",
       header: "From",
+      align: "center",
       render: (value) => (
         <AddressCell address={value} label="Contract / Null" />
       ),
@@ -89,12 +86,13 @@ const NFTTransfers = () => {
     {
       key: "to_address",
       header: "To",
+      align: "center",
       render: (value) => <AddressCell address={value} />,
     },
     {
       key: "type",
       header: "Type",
-      align: "right",
+      align: "center",
       render: (value) => (
         <span
           className="text-gray-700 font-semibold head text-xs "
@@ -108,6 +106,7 @@ const NFTTransfers = () => {
     {
       key: "token_id",
       header: "Token",
+      align: "center",
       render: (value, row) => (
         <Link
           to={`/nft/collection/${row.contract_address}`}

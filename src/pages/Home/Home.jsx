@@ -380,18 +380,7 @@ const Home = () => {
             <h1 className={`text-xl sm:text-3xl head lg:text-4xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
               JMC Coin Smart Chain Explorer
             </h1>
-            {/* Manual Refresh Button */}
-            <button
-              onClick={() => refetch()}
-              disabled={isFetching}
-              className={`p-2 rounded-lg transition-all ${isDark
-                  ? 'hover:bg-gray-800 text-gray-400 hover:text-gray-300'
-                  : 'hover:bg-gray-100 text-gray-500 hover:text-gray-700'
-                } ${isFetching ? 'opacity-50' : ''}`}
-              title="Refresh data"
-            >
-              {/* <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} /> */}
-            </button>
+           
           </div>
 
           <form onSubmit={handleSearch} className="relative flex items-center max-w-2xl mx-auto">
@@ -492,7 +481,7 @@ const Home = () => {
                       <div className="flex items-center gap-3">
                         <Link
                           to={`/blocks/${block.height}`}
-                          className="text-[#006666] text-sm font-semibold hover:underline"
+                          className="text-[#006666] text-sm   font-semibold hover:underline"
                         >
                           {block.height?.toLocaleString()}
                         </Link>
@@ -500,9 +489,9 @@ const Home = () => {
                           {formatTime(block.time)}
                         </p>
                       </div>
-                      <p className={`text-sm font-base ${isDark ? "text-[#545b6d]" : "text-[#545b6d]"}`}>
+                      <p className={`text-sm sm:text-xs font-base ${isDark ? "text-[#545b6d]" : "text-[#545b6d]"}`}>
                         Validated by{" "}
-                        <span className={isDark ? "text-[#006666]" : "text-[#006666]"}>
+                        <span className={isDark ? "text-[#006666] sm:text-xs" : "text-[#006666] sm:text-xs" }>
                           {block.validator_name || "Unknown"}
                         </span>
                       </p>

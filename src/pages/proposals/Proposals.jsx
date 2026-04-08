@@ -483,7 +483,7 @@ import {
   AlertCircle,
   Landmark,
 } from "lucide-react";
-
+import { formatJMC } from "../../hooks/formats"
 const Proposals = () => {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -564,12 +564,12 @@ const Proposals = () => {
       key: "proposal_id",
       header: "#ID",
       sortable: true,
+      align: "center",
       width: "w-20",
       render: (val) => (
         <span
-          className={`inline-flex items-center justify-center w-10 h-8 rounded-lg text-xs font-bold ${
-            isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
-          }`}
+          className={`inline-flex items-center justify-center w-10 h-8 rounded-lg text-xs font-bold ${isDark ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
+            }`}
         >
           {val}
         </span>
@@ -579,23 +579,22 @@ const Proposals = () => {
       key: "title",
       header: "Title",
       sortable: false,
+      align: "center",
       className: "max-w-xs lg:max-w-lg",
       render: (val, row) => (
         <div className=" flex-col gap-1.5">
           <span
-            className={`text-sm font-semibold leading-snug group-hover:text-[#00b2bd] transition-colors line-clamp-2 ${
-              isDark ? "text-gray-200" : "text-gray-800"
-            }`}
+            className={`text-sm font-semibold leading-snug group-hover:text-[#00b2bd] transition-colors line-clamp-2 ${isDark ? "text-gray-200" : "text-gray-800"
+              }`}
             title={val}
           >
             {val}
           </span>
           <span
-            className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md w-fit ${
-              isDark
+            className={`inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md w-fit ${isDark
                 ? "bg-gray-700/60 text-gray-400 border border-gray-600/50"
                 : "bg-gray-100 text-gray-500 border border-gray-200"
-            }`}
+              }`}
             title={row.description}
           >
             {row.description}
@@ -607,6 +606,7 @@ const Proposals = () => {
       key: "status",
       header: "Status",
       sortable: false,
+      align: "center",
       render: (val) => {
         const config = getStatusConfig(val, isDark);
         return (
@@ -623,6 +623,7 @@ const Proposals = () => {
       key: "yes_percentage",
       header: "Voting",
       width: "w-[40px]",
+      align: "center",
       render: (_val, row) => {
         const totalVotes =
           parseInt(row.yes_votes || 0) +
@@ -654,9 +655,8 @@ const Proposals = () => {
         return (
           <div className="space-y-1.5">
             <div
-              className={`h-2 rounded-full overflow-hidden flex ${
-                isDark ? "bg-gray-700" : "bg-gray-200"
-              }`}
+              className={`h-2 rounded-full overflow-hidden flex ${isDark ? "bg-gray-700" : "bg-gray-200"
+                }`}
             >
               <div
                 className="bg-green-300 transition-all duration-300"
@@ -675,9 +675,8 @@ const Proposals = () => {
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
                 <span
-                  className={`font-semibold ${
-                    isDark ? "text-green-400" : "text-green-600"
-                  }`}
+                  className={`font-semibold ${isDark ? "text-green-400" : "text-green-600"
+                    }`}
                 >
                   {yesPercentage}%
                 </span>
@@ -685,15 +684,14 @@ const Proposals = () => {
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                 <span
-                  className={`font-semibold ${
-                    isDark ? "text-red-400" : "text-red-600"
-                  }`}
+                  className={`font-semibold ${isDark ? "text-red-400" : "text-red-600"
+                    }`}
                 >
                   {noPercentage}%
                 </span>
               </span>
               <span className={`${isDark ? "text-gray-600" : "text-gray-400"}`}>
-                {totalVotes.toLocaleString()}
+                {formatJMC(proposals.total_deposit)} JMC
               </span>
             </div>
           </div>
@@ -703,12 +701,12 @@ const Proposals = () => {
     {
       key: "voting_end_time",
       header: "Voting End",
+      align: "center",
       render: (val) => (
         <div className="flex flex-col gap-0.5 whitespace-nowrap">
           <span
-            className={`text-xs font-medium ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
+            className={`text-xs font-medium ${isDark ? "text-gray-300" : "text-gray-700"
+              }`}
           >
             {new Date(val).toLocaleDateString("en-US", {
               month: "short",
@@ -729,24 +727,21 @@ const Proposals = () => {
 
   return (
     <div
-      className={`min-h-screen ${
-        isDark ? "bg-gray-900" : "bg-[#f5f7f9]"
-      } transition-colors`}
+      className={`min-h-screen ${isDark ? "bg-gray-900" : "bg-[#f5f7f9]"
+        } transition-colors`}
     >
       <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         {/* Header */}
         <div className="mb-6">
           <h1
-            className={`text-2xl subhead sm:text-4xl font-extrabold mb-2 ${
-              isDark ? "text-white" : "text-gray-900"
-            }`}
+            className={`text-2xl subhead sm:text-4xl font-extrabold mb-2 ${isDark ? "text-white" : "text-gray-900"
+              }`}
           >
             Governance
           </h1>
           <p
-            className={`text-xs sm:text-sm ${
-              isDark ? "text-gray-400" : "text-gray-600"
-            }`}
+            className={`text-xs sm:text-sm ${isDark ? "text-gray-400" : "text-gray-600"
+              }`}
           >
             Participate in the decentralized evolution of the Architect network.
             Vote on active proposals and track protocol changes.
@@ -782,9 +777,8 @@ const Proposals = () => {
         </div>
 
         {/* Table */}
-        <div className={`rounded-lg border overflow-hidden ${
-          isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-        }`}>
+        <div className={`rounded-lg border overflow-hidden ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+          }`}>
           {/* Table Header */}
           <div className="px-6 py-4 border-b border-gray-700">
             <div className="flex items-center justify-between">
@@ -852,6 +846,10 @@ function getYesPercentage(proposal) {
     parseInt(proposal.abstain_votes || 0) +
     parseInt(proposal.no_with_veto_votes || 0);
   return totalVotes > 0 ? (parseInt(proposal.yes_votes) / totalVotes) * 100 : 0;
+}
+function getdeposit(proposal) {
+  const deposit = parseInt(proposal.total_deposit)
+  return deposit;
 }
 
 function getStatusConfig(status, isDark) {
@@ -931,24 +929,21 @@ function timeAgo(timestamp) {
 
 const ErrorState = ({ onRetry, isDark }) => (
   <div
-    className={`min-h-screen flex items-center justify-center ${
-      isDark ? "bg-gray-900" : "bg-[#f5f7f9]"
-    }`}
+    className={`min-h-screen flex items-center justify-center ${isDark ? "bg-gray-900" : "bg-[#f5f7f9]"
+      }`}
   >
     <div className="text-center space-y-4 px-4">
       <div
-        className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto ${
-          isDark ? "bg-red-900/20" : "bg-red-50"
-        }`}
+        className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto ${isDark ? "bg-red-900/20" : "bg-red-50"
+          }`}
       >
         <XCircle
           className={`w-10 h-10 ${isDark ? "text-red-400" : "text-red-500"}`}
         />
       </div>
       <h2
-        className={`text-xl font-bold ${
-          isDark ? "text-white" : "text-gray-900"
-        }`}
+        className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"
+          }`}
       >
         Failed to Load Proposals
       </h2>

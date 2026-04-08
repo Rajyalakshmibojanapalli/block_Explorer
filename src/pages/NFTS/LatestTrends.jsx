@@ -12,7 +12,7 @@ import Pagination from "../../ui/Pagination";
 import LoadingSkeleton from "../../ui/LoadingSkeleton";
 import AddressCell from "../../ui/AddressCell";
 import TxHashCell from "../../ui/TxHashCell";
-import Table from "../../ui/Table";
+import Table, { TimeAgo } from "../../ui/Table";
 
 const PER_PAGE = 20;
 
@@ -47,12 +47,13 @@ const NFTTrades = () => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+      align: "center",
       render: (value) => <TxHashCell hash={value} />,
     },
      {
       key: "height",
       header: "Block",
-      align: "right",
+      align: "center",
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
@@ -65,24 +66,20 @@ const NFTTrades = () => {
      {
       key: "timestamp",
       header: "Age",
-      align: "right",
-      render: (value) => (
-        <span
-          className="text-gray-500 text-xs whitespace-nowrap"
-          title={value}
-        >
-          {timeAgo(value)}
-        </span>
+      align: "center",
+      render: (value) => (<TimeAgo timestamp={(value)}/>
       ),
     },
     {
       key: "action",
       header: "Action",
+      align: "center",
       render: (value) => <ActionBadge action={value} />,
     },
     {
       key: "from_address",
       header: "Buyer",
+      align: "center",
       render: (value, row) => (
         <AddressCell
           address={value}
@@ -111,6 +108,7 @@ const NFTTrades = () => {
     {
       key: "to_address",
       header: "Sellar",
+      align: "center",
       render: (value,row) => (
         <AddressCell
           address={value}
@@ -123,6 +121,7 @@ const NFTTrades = () => {
 {
   key: "token_id",
   header: "Token",
+  align: "center",
   render: (value, row) => (
     <Link 
       to={`/nft/collection/${row.contract_address}`}
@@ -151,7 +150,7 @@ const NFTTrades = () => {
  {
       key: "type",
       header: "Type",
-      align: "right",
+      align: "center",
       render: (value) => (
         <span
           className="text-gray-700 font-semibold head text-xs "

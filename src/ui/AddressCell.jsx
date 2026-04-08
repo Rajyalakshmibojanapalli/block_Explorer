@@ -29,7 +29,7 @@ const AddressCell = ({ address, label, startLen = 10, endLen = 6 }) => {
         style={{
           color: "#475569",
           fontStyle: "italic",
-          fontSize: "13px",
+          fontSize: "12px",
         }}
       >
         {label || "—"}
@@ -51,7 +51,7 @@ const AddressCell = ({ address, label, startLen = 10, endLen = 6 }) => {
           color: "#006666",
           textDecoration: "none",
           // fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "13px",
+          fontSize: "12px",
           fontWeight: 500,
           transition: "color 0.2s ease",
         }}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useGetTransactionsQuery, useSearchTransactionsQuery } from './transactionsApiSlice';
 import { useGetStatsQuery } from '../stats/statsApiSlice';
 import { useTheme } from '../../context/ThemeContext';
@@ -165,6 +165,7 @@ const TransactionsList = () => {
     {
       key: 'hash',
       header: 'Txn Hash',
+      align:"center",
       render: (value, row) => (
         <HashLink
           hash={value}
@@ -183,7 +184,7 @@ const TransactionsList = () => {
       key: 'method',
       header: 'Method',
       render: (value) => (
-        <Badge color={getMethodColor(value)} className="max-w-[100px] truncate">
+        <Badge color={getMethodColor(value)}>
           {formatMethod(value)}
         </Badge>
       ),
@@ -204,11 +205,13 @@ const TransactionsList = () => {
     {
       key: 'timestamp',
       header: 'Age',
+      align:"center",
       render: (value) => <TimeAgo timestamp={value} />,
     },
     {
       key: 'from_address',
       header: 'From',
+      align:"center",
       render: (value) => (
         <AddressLink address={value} truncateStart={8} truncateEnd={5} />
       ),
@@ -224,6 +227,7 @@ const TransactionsList = () => {
     {
       key: 'to_address',
       header: 'To',
+      align:"center",
       render: (value) =>
         value ? (
           <AddressLink address={value} truncateStart={8} truncateEnd={5} />
@@ -236,13 +240,13 @@ const TransactionsList = () => {
     {
       key: 'amount',
       header: 'Value',
-      align: 'right',
+      align:"center",
       render: (value) => <ValueBox value={formatAmount(value)} symbol="JMC" />,
     },
     {
       key: 'fee',
       header: 'Txn Fee',
-      align: 'right',
+      align:"center",
       render: (value) => <ValueBox value={parseFee(value)} symbol="JMC" size="sm" />,
     },
   ];
@@ -262,14 +266,12 @@ const TransactionsList = () => {
         {/* Header Section */}
         <div className="mb-6">
           <div>
-            <h1 className={`text-[30px] sm:text-3xl font-extrabold subhead ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h1 className={`text-[30px] sm:text-3xl font-extrabold subhead ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
               Transactions
             </h1>
-            <p className={`text-[14px] font-regular mt-1 ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+            <p className={`text-[14px] font-regular mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}>
               Real-time overview of the Cyan Ledger activity
             </p>
           </div>
@@ -299,9 +301,8 @@ const TransactionsList = () => {
             ${isDark ? 'border-gray-700' : 'border-gray-200'}
           `}>
             <div className="flex items-center gap-3 flex-1">
-              <span className={`text-sm font-semibold whitespace-nowrap ${
-                isDark ? 'text-gray-200' : 'text-gray-800'
-              }`}>
+              <span className={`text-sm font-semibold whitespace-nowrap ${isDark ? 'text-gray-200' : 'text-gray-800'
+                }`}>
                 {searchMode ? 'Search Results' : 'All Transactions'}
               </span>
               {currentIsFetching && (
@@ -365,9 +366,8 @@ const StatsCardsSkeleton = ({ isDark }) => (
     {[...Array(4)].map((_, i) => (
       <div
         key={i}
-        className={`rounded-xl border p-5 animate-pulse ${
-          isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-        }`}
+        className={`rounded-xl border p-5 animate-pulse ${isDark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+          }`}
       >
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -383,9 +383,8 @@ const StatsCardsSkeleton = ({ isDark }) => (
 );
 
 const StatsErrorState = ({ isDark, error, onRetry }) => (
-  <div className={`mb-6 p-4 rounded-xl border flex items-center justify-between ${
-    isDark ? 'bg-red-900/20 border-red-800' : 'bg-red-50 border-red-200'
-  }`}>
+  <div className={`mb-6 p-4 rounded-xl border flex items-center justify-between ${isDark ? 'bg-red-900/20 border-red-800' : 'bg-red-50 border-red-200'
+    }`}>
     <div className="flex items-center gap-3">
       <AlertCircle className={`w-4 h-4 ${isDark ? 'text-red-400' : 'text-red-600'}`} />
       <p className={`text-sm ${isDark ? 'text-red-400' : 'text-red-600'}`}>
@@ -395,11 +394,10 @@ const StatsErrorState = ({ isDark, error, onRetry }) => (
     {onRetry && (
       <button
         onClick={onRetry}
-        className={`text-xs px-3 py-1 rounded-lg font-medium transition-colors ${
-          isDark
+        className={`text-xs px-3 py-1 rounded-lg font-medium transition-colors ${isDark
             ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
             : 'bg-red-100 text-red-600 hover:bg-red-200'
-        }`}
+          }`}
       >
         Retry
       </button>
@@ -415,9 +413,8 @@ const TableSkeleton = ({ isDark, rows = 10 }) => (
     {[...Array(rows)].map((_, i) => (
       <div
         key={i}
-        className={`px-5 py-3.5 ${
-          i < rows - 1 ? (isDark ? 'border-b border-gray-700/40' : 'border-b border-gray-100') : ''
-        }`}
+        className={`px-5 py-3.5 ${i < rows - 1 ? (isDark ? 'border-b border-gray-700/40' : 'border-b border-gray-100') : ''
+          }`}
       >
         <div className="flex items-center gap-3 animate-pulse">
           <div className={`w-[18px] h-[18px] rounded-full flex-shrink-0 ${isDark ? 'bg-gray-700' : 'bg-gray-200'}`} />
@@ -438,9 +435,8 @@ const TableSkeleton = ({ isDark, rows = 10 }) => (
 
 const TableErrorState = ({ isDark, error, onRetry }) => (
   <div className="p-12 text-center">
-    <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 ${
-      isDark ? 'bg-red-900/20' : 'bg-red-50'
-    }`}>
+    <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4 ${isDark ? 'bg-red-900/20' : 'bg-red-50'
+      }`}>
       <XCircle className={`w-7 h-7 ${isDark ? 'text-red-400' : 'text-red-500'}`} />
     </div>
     <h3 className={`text-base font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -452,11 +448,10 @@ const TableErrorState = ({ isDark, error, onRetry }) => (
     {onRetry && (
       <button
         onClick={onRetry}
-        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-          isDark
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isDark
             ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-        }`}
+          }`}
       >
         Try Again
       </button>
@@ -466,9 +461,8 @@ const TableErrorState = ({ isDark, error, onRetry }) => (
 
 const EmptyState = ({ isDark, searchMode, onClear }) => (
   <div className="p-16 text-center">
-    <Activity className={`w-10 h-10 mx-auto mb-3 opacity-30 ${
-      isDark ? 'text-gray-500' : 'text-gray-400'
-    }`} />
+    <Activity className={`w-10 h-10 mx-auto mb-3 opacity-30 ${isDark ? 'text-gray-500' : 'text-gray-400'
+      }`} />
     <h3 className={`text-base font-semibold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
       {searchMode ? 'No Results Found' : 'No Transactions Found'}
     </h3>
@@ -480,11 +474,10 @@ const EmptyState = ({ isDark, searchMode, onClear }) => (
     {searchMode && onClear && (
       <button
         onClick={onClear}
-        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-          isDark
+        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isDark
             ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-        }`}
+          }`}
       >
         Clear Search
       </button>

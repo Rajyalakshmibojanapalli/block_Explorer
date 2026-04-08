@@ -7,9 +7,9 @@ const TransactionDetailPage = () => {
   const { hash } = useParams();
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    navigate('/transactions');
-  };
+const handleClose = () => {
+  navigate(-1);
+};
 
   // Redirect if no hash
   if (!hash) {
