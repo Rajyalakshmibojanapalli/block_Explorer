@@ -439,21 +439,21 @@ const Home = () => {
           />
           <StatCard
             title="Block Height"
-            value={stats?.block_height?.toLocaleString() || "—"}
+            value={stats?.block_height || "—"}
             badge="LIVE"
             icon={<Menu />}
             isDark={isDark}
           />
           <StatCard
             title="Transactions/Day"
-            value={stats?.tps ? (stats.tps * 86400).toLocaleString(undefined, { maximumFractionDigits: 0 }) : "0"}
+            value={stats?.tps?.toLocaleString() || "0"}
             badge="24H"
             icon={<TrendingUp />}
             isDark={isDark}
           />
           <StatCard
             title="Avg Block Time"
-            value={stats?.avg_block_time ? `${stats.avg_block_time}s` : "—"}
+            value={stats?.avg_block_time ? `${stats.avg_block_time.toFixed(2)}s` : "0s"}
             badge="24H"
             icon={<Timer />}
             isDark={isDark}
