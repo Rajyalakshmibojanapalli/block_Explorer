@@ -319,12 +319,12 @@ import FeatureCard from "../../ui/FeatureCard.jsx";
 
 const Home = () => {
   // Enable refetching with pollingInterval
-  const { 
-    data, 
-    isLoading, 
-    isError, 
+  const {
+    data,
+    isLoading,
+    isError,
     isFetching,
-    refetch 
+    refetch
   } = useGetHomeDataQuery(undefined, {
     pollingInterval: 30000, // Auto-refetch every 30 seconds
     refetchOnMountOrArgChange: true,
@@ -384,11 +384,10 @@ const Home = () => {
             <button
               onClick={() => refetch()}
               disabled={isFetching}
-              className={`p-2 rounded-lg transition-all ${
-                isDark 
-                  ? 'hover:bg-gray-800 text-gray-400 hover:text-gray-300' 
+              className={`p-2 rounded-lg transition-all ${isDark
+                  ? 'hover:bg-gray-800 text-gray-400 hover:text-gray-300'
                   : 'hover:bg-gray-100 text-gray-500 hover:text-gray-700'
-              } ${isFetching ? 'opacity-50' : ''}`}
+                } ${isFetching ? 'opacity-50' : ''}`}
               title="Refresh data"
             >
               <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} />
@@ -417,9 +416,8 @@ const Home = () => {
         {/* Loading indicator when fetching in background */}
         {isFetching && !isLoading && (
           <div className="fixed top-20 right-4 z-50">
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow-lg ${
-              isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-            }`}>
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-lg shadow-lg ${isDark ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+              }`}>
               <RefreshCw size={14} className="animate-spin text-[#00b2bd]" />
               <span className={`text-xs font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                 Updating...
@@ -482,13 +480,11 @@ const Home = () => {
                 latest_blocks.slice(0, 6).map((block, i) => (
                   <div
                     key={block.hash || i}
-                    className={`flex items-center gap-3 px-5 py-3 transition-colors ${
-                      isDark ? "hover:bg-gray-700/40" : "hover:bg-gray-50"
-                    }`}
+                    className={`flex items-center gap-3 px-5 py-3 transition-colors ${isDark ? "hover:bg-gray-700/40" : "hover:bg-gray-50"
+                      }`}
                   >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                      isDark ? "bg-[#00b2bd]/10" : "bg-[#00b2bd]/10"
-                    }`}>
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${isDark ? "bg-[#00b2bd]/10" : "bg-[#00b2bd]/10"
+                      }`}>
                       <Box className="w-4 h-4 text-[#006666]" />
                     </div>
 
@@ -514,10 +510,13 @@ const Home = () => {
 
                     {block.reward && (
                       <div className="text-right shrink-0 head min-w-[80px]">
-                        <span className={`text-[12px] font-bold bg-[#e4fcfc] p-2 rounded-full font-semibold ${
-                          isDark ? "text-[#006666]" : "text-[#006666]"
-                        }`}>
-                          {block.reward}
+                        <span
+                          className={`text-[12px] font-bold bg-[#e4fcfc] p-2 rounded-full font-semibold ${isDark ? "text-[#006666]" : "text-[#006666]"
+                            }`}
+                        >
+                          {(
+                            Number(block.reward.replace("uJMC", "")) / 1_000_000
+                          ).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })} JMC
                         </span>
                       </div>
                     )}
@@ -550,13 +549,11 @@ const Home = () => {
                 latest_transactions.slice(0, 6).map((tx, i) => (
                   <div
                     key={tx.hash || i}
-                    className={`flex items-center gap-3 px-5 py-3 transition-colors ${
-                      isDark ? "hover:bg-gray-700/40" : "hover:bg-gray-50"
-                    }`}
+                    className={`flex items-center gap-3 px-5 py-3 transition-colors ${isDark ? "hover:bg-gray-700/40" : "hover:bg-gray-50"
+                      }`}
                   >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                      isDark ? "bg-[#00b2bd]/10" : "bg-[#00b2bd]/10"
-                    }`}>
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${isDark ? "bg-[#00b2bd]/10" : "bg-[#00b2bd]/10"
+                      }`}>
                       <Newspaper className="w-4 h-4 text-[#006666]" />
                     </div>
 
@@ -593,9 +590,8 @@ const Home = () => {
                       <span className={`text-xs font-semibold head ${isDark ? "text-[#006666]" : "text-[#006666]"}`}>
                         {(tx.amount_value / 1_000_000).toFixed(2)} JMC
                       </span>
-                      <span className={`text-[8px] px-1.5 head py-0.5 rounded font-bold ${
-                        isDark ? "bg-gray-700 text-gray-400" : "bg-gray-100 text-gray-500"
-                      }`}>
+                      <span className={`text-[8px] px-1.5 head py-0.5 rounded font-bold ${isDark ? "bg-gray-700 text-gray-400" : "bg-gray-100 text-gray-500"
+                        }`}>
                         {formatMethod(tx.method)}
                       </span>
                     </div>

@@ -885,16 +885,34 @@ const BlocksList = () => {
       ),
       align: 'right',
     },
-    {
-      key: 'reward',
-      header: 'Reward',
-      render: (value) => (
-        <span className={`text-sm head font-semibold ${isDark ? 'text-green-400' : 'text-green-600'}`}>
-          {value || '0'}
-        </span>
-      ),
-      align: 'right',
-    },
+   {
+  key: 'reward',
+  header: 'Reward',
+  render: (value) => {
+    const formatJMC = (val) => {
+      if (!val) return "0.00";
+
+      const num = Number(String(val).replace("uJMC", ""));
+      if (isNaN(num)) return "0.00";
+
+      return (num / 1_000_000).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 4,
+      });
+    };
+
+    return (
+      <span
+        className={`text-sm head font-semibold ${
+          isDark ? 'text-green-400' : 'text-green-600'
+        }`}
+      >
+        {formatJMC(value)} JMC
+      </span>
+    );
+  },
+  align: 'right',
+}
   ];
 
   const handlePageChange = (newPage) => {
