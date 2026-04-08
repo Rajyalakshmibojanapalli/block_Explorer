@@ -51,16 +51,20 @@ export const validatorsApi = apiSlice.injectEndpoints({
       ],
     }),
 
-    getValidatorDetails: builder.query({
-      query: ({ page = 1, per_page = 20,}) => {
-        const url = `/validators/set-info`;
-        console.log("🔵 API Call - getValidatorDetails:", url);
-        return url;
-      },
-      providesTags: (result, error, operatorAddress) => [
-        { type: "Validator", id: operatorAddress },
-      ],
-    }),
+   getValidatorDetails: builder.query({
+  query: ({ page = 1, per_page = 25 }) => {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      per_page: per_page.toString(),
+    });
+    const url = `/validators/set-info?${params.toString()}`;
+    console.log("🔵 API Call - getValidatorDetails:", url);
+    return url;
+  },
+  providesTags: (result, error, { page }) => [
+    { type: "Validator", id: `SET_INFO_${page}` },
+  ],
+}),
 
     getValidatorByOperatorAddress: builder.query({
       query: (operatorAddress) => {

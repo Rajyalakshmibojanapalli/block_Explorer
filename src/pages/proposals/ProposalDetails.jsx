@@ -63,7 +63,7 @@ const ProposalDetail = () => {
   const totalVotes  = yesVotes + noVotes + vetoVotes + abstainVotes;
 
   const pct = (v) => (totalVotes > 0 ? ((v / totalVotes) * 100).toFixed(1) : "0");
-  const uJMC = (v) => `${parseFloat(v || 0).toLocaleString()} uJMC`;
+  const uJMC = (v) => `${parseFloat(v/1000000 || 0).toLocaleString()} JMC`;
 
   // Turnout / Quorum — adapt field names as needed
   const turnout = proposal.turnout ? `${parseFloat(proposal.turnout).toFixed(1)}%` : "65.4%";

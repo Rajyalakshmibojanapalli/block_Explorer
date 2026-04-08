@@ -390,7 +390,7 @@ const Home = () => {
                 } ${isFetching ? 'opacity-50' : ''}`}
               title="Refresh data"
             >
-              <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} />
+              {/* <RefreshCw size={20} className={isFetching ? "animate-spin" : ""} /> */}
             </button>
           </div>
 

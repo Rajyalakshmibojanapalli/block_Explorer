@@ -135,3 +135,17 @@ const getTimeAgo = (timestamp) => {
   return 'just now';
 };
 export { getTimeAgo };
+
+
+const formatJMC = (val) => {
+  if (!val) return "0.00";
+
+  const num = Number(String(val).replace("uJMC", ""));
+  if (isNaN(num)) return "0.00";
+
+  return (num / 1_000_000).toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 6,
+  });
+};
+export { formatJMC };

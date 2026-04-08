@@ -984,8 +984,7 @@ const BlocksList = () => {
                 bordered={false}
                 compact
               />
-            </div>
-{console.log('Pagination Info:', pagination.total_pages) }            {/* ✅ PAGINATION - Now using correct prop name */}
+            </div>            
             <Pagination
               currentPage={pagination.page}
               totalPages={pagination.total_pages}

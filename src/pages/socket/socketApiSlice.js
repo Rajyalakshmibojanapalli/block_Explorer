@@ -26,7 +26,7 @@ class WebSocketService {
     this._notify("status", "connecting");
 
     try {
-      console.log("🔌 Connecting to:", this.url);
+      // console.log("🔌 Connecting to:", this.url);
       this.ws = new WebSocket(this.url);
 
       this.ws.onopen = this._onOpen.bind(this);
@@ -41,7 +41,7 @@ class WebSocketService {
 
   // Handle connection open
   _onOpen() {
-    console.log("✅ WebSocket Connected");
+    // console.log("✅ WebSocket Connected");
     this.connectionStatus = "connected";
     this.reconnectAttempts = 0;
     this._notify("status", "connected");
@@ -66,7 +66,7 @@ class WebSocketService {
         data = { type: "unknown", payload: event.data };
       }
 
-      console.log("📨 Received:", data);
+
 
       // Get message type
       const type = data.type || data.event || data.channel || "message";

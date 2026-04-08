@@ -14,7 +14,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import { formatJMC } from '../../hooks/formats';
 // ═══════════════════════════════════════════════════════════
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════
@@ -28,17 +28,17 @@ const LatestBlocks = () => {
   // Determine which query to use
   const isLatest = !height || height === 'latest';
   const blockHeight = height && height !== 'latest' ? parseInt(height, 10) : null;
-const [showMoreDetails, setShowMoreDetails] = useState(false);
+  const [showMoreDetails, setShowMoreDetails] = useState(false);
   // Use appropriate query based on route
-  const { 
-    data: block, 
-    error, 
-    isLoading, 
-    refetch, 
-    isFetching 
-  } = isLatest 
-    ? useGetLatestBlockQuery() 
-    : useGetBlockByHeightQuery(blockHeight);
+  const {
+    data: block,
+    error,
+    isLoading,
+    refetch,
+    isFetching
+  } = isLatest
+      ? useGetLatestBlockQuery()
+      : useGetBlockByHeightQuery(blockHeight);
 
   if (isLoading) return <BlockSkeleton isDark={isDark} navigate={navigate} />;
 
@@ -107,24 +107,22 @@ const [showMoreDetails, setShowMoreDetails] = useState(false);
           <button
             onClick={() => block.height > 1 && navigate(`/blocks/${block.height - 1}`)}
             disabled={block.height <= 1}
-            className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center border border-gray-400 gap-2 transition-all ${
-              block.height <= 1
+            className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center border border-gray-400 gap-2 transition-all ${block.height <= 1
                 ? 'opacity-50 cursor-not-allowed'
                 : isDark
                   ? 'bg-[#21262d] hover:bg-[#30363d] text-gray-300'
                   : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-            }`}
+              }`}
           >
             <ChevronLeft className="w-4 h-4" />
             Previous
           </button>
           <button
             onClick={() => navigate(`/blocks/${block.height + 1}`)}
-            className={`px-3 py-2 rounded-lg text-sm font-medium flex border border-gray-400 items-center gap-2 transition-all ${
-              isDark
+            className={`px-3 py-2 rounded-lg text-sm font-medium flex border border-gray-400 items-center gap-2 transition-all ${isDark
                 ? 'bg-[#21262d] hover:bg-[#30363d] text-gray-300'
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
-            }`}
+              }`}
           >
             Next
             <ChevronRight className="w-4 h-4" />
@@ -132,11 +130,10 @@ const [showMoreDetails, setShowMoreDetails] = useState(false);
           {!isLatest && (
             <button
               onClick={() => navigate('/blocks/latest')}
-              className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${
-                isDark
+              className={`px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-all ${isDark
                   ? 'bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 border border-blue-500/30'
                   : 'bg-blue-100 hover:bg-blue-200 text-blue-700 border border-blue-200'
-              }`}
+                }`}
             >
               Go to Latest
             </button>
@@ -206,8 +203,11 @@ const [showMoreDetails, setShowMoreDetails] = useState(false);
 
             {/* Block Reward */}
             <DetailRow label="Block Reward" isDark={isDark}>
-              <span className={`text-xs head font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                {block.reward || '0'}
+              <span
+                className={`text-xs head font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+              >
+                {formatJMC(block.reward)} JMC
               </span>
             </DetailRow>
 
@@ -246,11 +246,10 @@ const [showMoreDetails, setShowMoreDetails] = useState(false);
                   <div
                     className="bg-green-400 h-2 rounded-full transition-all duration-300"
                     style={{
-                      width: `${
-                        block.gas_used && block.gas_wanted
+                      width: `${block.gas_used && block.gas_wanted
                           ? ((block.gas_used / block.gas_wanted) * 100).toFixed(2)
                           : 0
-                      }%`
+                        }%`
                     }}
                   />
                 </div>
@@ -267,78 +266,75 @@ const [showMoreDetails, setShowMoreDetails] = useState(false);
             {/* Burnt Fees */}
             <DetailRow label="Total gas fee" isDark={isDark}>
               <span className={`text-sm head ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
-                {block.total_gas_fee_value/1000000 || '0'} <span className="text-gray-500">JMC</span>
+                {block.total_gas_fee_value / 1000000 || '0'} <span className="text-gray-500">JMC</span>
               </span>
             </DetailRow>
 
           </div>
-<div className={`rounded-lg border overflow-hidden mt-4 ${isDark ? 'bg-[#161b22] border-[#30363d]' : 'bg-white border-gray-200'}`}>
-  {/* Dropdown Header */}
-  <button
-    onClick={() => setShowMoreDetails(!showMoreDetails)}
-    className={`w-full px-4 py-3 flex items-center justify-between transition-colors ${
-      isDark ? 'hover:bg-[#0d1117]' : 'hover:bg-gray-50'
-    }`}
-  >
-    <h2 className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-      More Details
-    </h2>
-    <ChevronDown 
-      className={`w-4 h-4 transition-transform duration-300 ${showMoreDetails ? 'rotate-180' : 'rotate-0'} ${
-        isDark ? 'text-gray-500' : 'text-gray-400'
-      }`}
-    />
-  </button>
-
-  {/* Dropdown Content with Smooth Animation */}
-  <div 
-    className={`transition-all duration-300 ease-in-out overflow-hidden ${
-      showMoreDetails ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-    }`}
-  >
-    <div className={`border-t ${isDark ? 'border-[#30363d]' : 'border-gray-200'}`}>
-      <div className={`divide-y ${isDark ? 'divide-[#30363d]' : 'divide-gray-100'}`}>
-
-        {/* Hash */}
-        <DetailRow label="Hash" isDark={isDark}>
-          <div className="flex items-center gap-2">
-            <code className={`text-xs font-semibold head ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-              {block.hash}
-            </code>
-            <CopyBtn text={block.hash} isDark={isDark} />
-          </div>
-        </DetailRow>
-
-        {/* Parent Hash */}
-        <DetailRow label="Parent Hash" isDark={isDark}>
-          <div className="flex items-center gap-2">
-            <Link
-              to={`/blocks/${block.height - 1}`}
-              className={`text-xs font-semibold head hover:underline break-all ${isDark ? 'text-blue-400' : 'text-blue-600'}`}
+          <div className={`rounded-lg border overflow-hidden mt-4 ${isDark ? 'bg-[#161b22] border-[#30363d]' : 'bg-white border-gray-200'}`}>
+            {/* Dropdown Header */}
+            <button
+              onClick={() => setShowMoreDetails(!showMoreDetails)}
+              className={`w-full px-4 py-3 flex items-center justify-between transition-colors ${isDark ? 'hover:bg-[#0d1117]' : 'hover:bg-gray-50'
+                }`}
             >
-              {block.parent_hash}
-            </Link>
-            <CopyBtn text={block.parent_hash} isDark={isDark} />
-          </div>
-        </DetailRow>
+              <h2 className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                More Details
+              </h2>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${showMoreDetails ? 'rotate-180' : 'rotate-0'} ${isDark ? 'text-gray-500' : 'text-gray-400'
+                  }`}
+              />
+            </button>
 
-        {/* Proposer Address */}
-        <DetailRow label="Proposer Address" isDark={isDark}>
-          <div className="flex items-center gap-2">
-            <Link
-              to={`/address/${block.proposer_address}`}
-              className={`text-xs font-semibold head hover:underline break-all ${isDark ? 'text-blue-400' : 'text-blue-600'}`}
+            {/* Dropdown Content with Smooth Animation */}
+            <div
+              className={`transition-all duration-300 ease-in-out overflow-hidden ${showMoreDetails ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                }`}
             >
-              {block.proposer_address}
-            </Link>
-            <CopyBtn text={block.proposer_address} isDark={isDark} />
-          </div>
-        </DetailRow>
+              <div className={`border-t ${isDark ? 'border-[#30363d]' : 'border-gray-200'}`}>
+                <div className={`divide-y ${isDark ? 'divide-[#30363d]' : 'divide-gray-100'}`}>
 
-      </div>
-    </div>
-  </div>
-</div>
+                  {/* Hash */}
+                  <DetailRow label="Hash" isDark={isDark}>
+                    <div className="flex items-center gap-2">
+                      <code className={`text-xs font-semibold head ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                        {block.hash}
+                      </code>
+                      <CopyBtn text={block.hash} isDark={isDark} />
+                    </div>
+                  </DetailRow>
+
+                  {/* Parent Hash */}
+                  <DetailRow label="Parent Hash" isDark={isDark}>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        to={`/blocks/${block.height - 1}`}
+                        className={`text-xs font-semibold head hover:underline break-all ${isDark ? 'text-blue-400' : 'text-blue-600'}`}
+                      >
+                        {block.parent_hash}
+                      </Link>
+                      <CopyBtn text={block.parent_hash} isDark={isDark} />
+                    </div>
+                  </DetailRow>
+
+                  {/* Proposer Address */}
+                  <DetailRow label="Proposer Address" isDark={isDark}>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        to={`/address/${block.proposer_address}`}
+                        className={`text-xs font-semibold head hover:underline break-all ${isDark ? 'text-blue-400' : 'text-blue-600'}`}
+                      >
+                        {block.proposer_address}
+                      </Link>
+                      <CopyBtn text={block.proposer_address} isDark={isDark} />
+                    </div>
+                  </DetailRow>
+
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -358,11 +354,10 @@ const TopNav = ({ isDark, navigate }) => (
     <div className="max-w-[1280px] mx-auto px-4 py-3">
       <button
         onClick={() => navigate('/blocks')}
-        className={`flex items-center gap-2 text-sm transition-colors ${
-          isDark
+        className={`flex items-center gap-2 text-sm transition-colors ${isDark
             ? 'text-gray-400 hover:text-gray-300'
             : 'text-gray-600 hover:text-gray-900'
-        }`}
+          }`}
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Blocks
@@ -376,9 +371,8 @@ const TopNav = ({ isDark, navigate }) => (
 // ═══════════════════════════════════════════════════════════
 
 const DetailRow = ({ label, children, isDark }) => (
-  <div className={`px-4 py-3 flex flex-row sm:flex-row sm:items-start gap-2 sm:gap-4 ${
-    isDark ? 'hover:bg-[#0d1117]' : 'hover:bg-gray-50'
-  } transition-colors`}>
+  <div className={`px-4 py-3 flex flex-row sm:flex-row sm:items-start gap-2 sm:gap-4 ${isDark ? 'hover:bg-[#0d1117]' : 'hover:bg-gray-50'
+    } transition-colors`}>
     <div className="sm:w-[180px] flex-shrink-0">
       <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>
         {label}:
@@ -406,11 +400,10 @@ const CopyBtn = ({ text, isDark }) => {
   return (
     <button
       onClick={handleCopy}
-      className={`p-1 rounded transition-colors ${
-        isDark
+      className={`p-1 rounded transition-colors ${isDark
           ? 'hover:bg-[#21262d] text-gray-500 hover:text-gray-400'
           : 'hover:bg-gray-100 text-gray-400 hover:text-gray-600'
-      }`}
+        }`}
       title="Copy to clipboard"
     >
       {copied ? (
