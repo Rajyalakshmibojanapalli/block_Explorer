@@ -201,7 +201,7 @@ import { ArrowRight, Coins } from "lucide-react";
 import { useGetAddressCw20TransfersQuery } from "./addressApiSlice";
 import { timeAgo } from "../../hooks/formats";
 
-import Table from "../../ui/Table";
+import Table, { TimeAgo } from "../../ui/Table";
 import Pagination from "../../ui/Pagination";
 import LoadingSkeleton from "../../ui/LoadingSkeleton";
 import ErrorState from "../../ui/ErrorState";
@@ -261,21 +261,25 @@ const AddressCw20Transfers = ({ address }) => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+       align:'center',
       render: (value) => <TxHashCell hash={value} />,
     },
     {
       key: "action",
       header: "Action",
+       align:'center',
       render: (value) => <ActionBadge action={value} />,
     },
     {
       key: "contract_address",
       header: "Contract",
+       align:'center',
       render: (value) => <AddressCell address={value} label="Contract" />,
     },
     {
       key: "sender",
       header: "From",
+       align:'center',
       render: (value) => (
         <AddressCell address={value || "Null"} label={!value ? "Mint" : ""} />
       ),
@@ -292,12 +296,13 @@ const AddressCw20Transfers = ({ address }) => {
     {
       key: "recipients",
       header: "To",
+       align:'center',
       render: (value) => <AddressCell address={value} />,
     },
     {
       key: "amount",
       header: "Amount",
-      align: "right",
+       align:'center',
       render: (value) => (
         <span className="text-sm font-semibold head text-[#006666] font-mono">
           {value ? (parseInt(value) / 1000000).toLocaleString() : '0'} JMC
@@ -307,11 +312,11 @@ const AddressCw20Transfers = ({ address }) => {
     {
       key: "height",
       header: "Height",
-      align: "right",
+       align:'center',
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
-          className="text-[#006666] hover:text-[#00ffc8] font-semibold text-[13px] font-medium transition-colors"
+          className="text-[#006666] hover:text-[#006666] font-semibold text-[13px] font-medium transition-colors"
         >
           {value?.toLocaleString()}
         </Link>
@@ -320,11 +325,9 @@ const AddressCw20Transfers = ({ address }) => {
     {
       key: "timestamp",
       header: "Time",
-      align: "right",
+       align:'center',
       render: (value) => (
-        <span className="text-slate-500 text-xs whitespace-nowrap" title={value}>
-          {timeAgo(value)}
-        </span>
+       <TimeAgo timestamp={(value)}/>
       ),
     },
   ];

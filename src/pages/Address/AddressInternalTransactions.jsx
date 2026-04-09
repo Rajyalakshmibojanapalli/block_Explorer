@@ -40,12 +40,13 @@ const AddressInternalTransactions = ({ address }) => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+      align:'center',
       render: (value) => <TxHashCell hash={value} />,
     },
     {
       key: "height",
       header: "Height",
-      align: "right",
+      align:'center',
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
@@ -73,6 +74,7 @@ const AddressInternalTransactions = ({ address }) => {
     {
       key: "from_address",
       header: "From",
+      align:'center',
       render: (value) => <AddressCell address={value} />,
     },
     {
@@ -90,12 +92,13 @@ const AddressInternalTransactions = ({ address }) => {
     {
       key: "to_address",
       header: "To",
+      align:'center',
       render: (value) => <AddressCell address={value} />,
     },
     {
       key: "amount",
       header: "Amount",
-      align: "right",
+      align:'center',
       render: (value) => (
         <span className="text-xs head font-semibold text-[#006666] font-mono">
           {formatJMC(value)} JMC

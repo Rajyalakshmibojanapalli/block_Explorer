@@ -270,9 +270,9 @@ const TransactionsList = () => {
               }`}>
               Transactions
             </h1>
-            <p className={`text-[14px] font-regular mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'
+            <p className={`text-[14px] head font-regular mt-1 ${isDark ? 'text-gray-400' : 'text-gray-600'
               }`}>
-              Real-time overview of the Cyan Ledger activity
+              Real-time overview of the JMC-24 Chain activity
             </p>
           </div>
         </div>

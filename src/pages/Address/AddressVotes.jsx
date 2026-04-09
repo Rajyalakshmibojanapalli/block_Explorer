@@ -83,6 +83,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "rank",
       header: "#",
+       align:'center',
       render: (_, __, index) => (
         <span className="text-slate-500 text-xs font-medium">
           {(tokenPage - 1) * perPage + index + 1}
@@ -92,11 +93,12 @@ const AddressAssets = ({ address }) => {
     {
       key: "token",
       header: "Token",
+       align:'center',
       render: (_, row) => (
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-500/20 to-gray-500/20 border border-gray-500/30 flex items-center justify-center">
+        <div className="inline-flex items-center gap-3">
+          {/* <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gray-500/20 to-gray-500/20 border border-gray-500/30 flex items-center justify-center">
             <Coins size={16} className="text-gray-600" />
-          </div>
+          </div> */}
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-gray-800">
@@ -114,10 +116,11 @@ const AddressAssets = ({ address }) => {
     {
       key: "contract_address",
       header: "Contract",
+      align:'center',
       render: (value) => (
         <Link
           to={`/contract/${value}`}
-          className="text-[#006666] hover:text-[#00ffc8] font-semibold text-xs transition-colors"
+          className="text-[#006666] font-semibold text-xs transition-colors"
         >
           {truncateAddress(value, 10, 10)}
         </Link>
@@ -126,10 +129,10 @@ const AddressAssets = ({ address }) => {
     {
       key: "balance",
       header: "Balance",
-      align: "right",
+       align:'center',
       render: (value, row) => (
-        <div className="text-right">
-          <p className="text-sm font-bold text-gray-700">
+        <div className="">
+          <p className="text-sm head font-semibold text-gray-700">
             {formatBalance(value, row.decimals)} {row.symbol}
           </p>
         </div>
@@ -138,7 +141,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "value",
       header: "Value",
-      align: "right",
+       align:'center',
       render: (_, row) => {
         if (row.price_usd) {
           const balance = row.balance / Math.pow(10, row.decimals);
@@ -161,7 +164,8 @@ const AddressAssets = ({ address }) => {
   const nftColumns = [
     {
       key: "rank",
-      header: "#",
+      header: "s.no",
+       align:'center',
       render: (_, __, index) => (
         <span className="text-slate-500 text-xs font-medium">
           {(nftPage - 1) * perPage + index + 1}
@@ -171,11 +175,12 @@ const AddressAssets = ({ address }) => {
     {
       key: "collection",
       header: "Collection",
+       align:'center',
       render: (_, row) => (
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500/20 to-gray-500/20 border border-indigo-500/30 flex items-center justify-center">
+        <div className="inline-flex items-center gap-3">
+          {/* <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500/20 to-gray-500/20 border border-indigo-500/30 flex items-center justify-center">
             <Image size={18} className="text-indigo-600" />
-          </div>
+          </div> */}
           <div>
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold text-gray-800">
@@ -193,20 +198,22 @@ const AddressAssets = ({ address }) => {
     {
       key: "token_id",
       header: "Token ID",
+       align:'center',
       render: (value) => (
         <div className="flex items-center gap-2">
-          <Hash size={14} className="text-slate-400" />
-          <span className="font-mono text-sm text-gray-700">{value}</span>
+          {/* <Hash size={14} className="text-slate-400" /> */}
+          <span className="font-semibold text-sm text-gray-700">{value}</span>
         </div>
       ),
     },
     {
       key: "contract_address",
       header: "Contract",
+       align:'center',
       render: (value) => (
         <Link
           to={`/contract/${value}`}
-          className="text-[#006666] hover:text-[#00ffc8] font-semibold text-xs transition-colors"
+          className="text-[#006666] font-semibold text-xs transition-colors"
         >
           {truncateAddress(value, 10, 10)}
         </Link>
@@ -215,19 +222,20 @@ const AddressAssets = ({ address }) => {
     {
       key: "minted_height",
       header: "Minted At",
-      align: "right",
+       align:'center',
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
-          className="text-[#006666] hover:text-[#00ffc8] font-mono text-xs transition-colors"
+          className="text-[#006666]  font-semibold text-xs transition-colors"
         >
-          Block #{value?.toLocaleString()}
+          {value?.toLocaleString()}
         </Link>
       ),
     },
     {
       key: "mint_tx",
       header: "Mint Transaction",
+       align:'center',
       render: (value) => <TxHashCell hash={value} />,
     },
   ];

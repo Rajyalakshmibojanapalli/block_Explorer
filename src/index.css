@@ -11,3 +11,7 @@ body{
 .subhead{
     font-family: "Manrope", sans-serif;
 }
+::selection{
+    color: #ffffff;
+    background-color: #006666;
+}

@@ -6,7 +6,7 @@ import { useGetTransactionsByAddressQuery } from "../Transactions/transactionsAp
 import LoadingSkeleton from "../../ui/LoadingSkeleton";
 import ErrorState from "../../ui/ErrorState";
 import EmptyState from "../../ui/EmptyState";
-import Table from "../../ui/Table";
+import Table, { TimeAgo } from "../../ui/Table";
 import Pagination from "../../ui/Pagination";
 import { timeAgo, truncateAddress } from "../../hooks/formats";
 import TxHashCell from "../../ui/TxHashCell";
@@ -86,6 +86,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "method",
       header: "Method",
+       align:'center',
       render: (value, row) => {
         const direction = getTransactionDirection(row);
         const isIncoming = direction === 'in';
@@ -102,11 +103,11 @@ const AddressAssets = ({ address }) => {
     {
       key: "height",
       header: "Block",
-      align: "right",
+       align:'center',
       render: (value) => (
         <Link
           to={`/blocks/${value}`}
-          className="text-[#006666] hover:text-[#00ffc8] font-semibold text-xs transition-colors"
+          className="text-[#006666]  font-semibold text-xs transition-colors"
         >
           {value?.toLocaleString()}
         </Link>
@@ -115,11 +116,9 @@ const AddressAssets = ({ address }) => {
      {
       key: "timestamp",
       header: "Age",
-      align: "right",
+       align:'center',
       render: (value) => (
-        <span className="text-slate-500 text-xs whitespace-nowrap" title={value}>
-          {timeAgo(value)}
-        </span>
+        <TimeAgo timestamp={(value)}/>
       ),
     },
 
@@ -127,6 +126,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "from_address",
       header: "From",
+       align:'center',
       render: (value) => (
         <Link
           to={`/address/${value}`}
@@ -139,6 +139,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "to_address",
       header: "To",
+       align:'center',
       render: (value) => (
         <Link
           to={`/address/${value}`}
@@ -151,7 +152,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "amount_value",
       header: "Amount",
-      align: "right",
+       align:'center',
       render: (value, row) => {
         const direction = getTransactionDirection(row);
         const isIncoming = direction === 'in';
@@ -168,7 +169,7 @@ const AddressAssets = ({ address }) => {
 {
   key: "fee",
   header: "Fee",
-  align: "right",
+   align:'center',
   render: (value, row) => {
     // Remove "uJMC" from the end and extract only the numerical value
     const feeValue = row.fee?.toString().replace(/uJMC$/i, '').trim();
@@ -183,6 +184,7 @@ const AddressAssets = ({ address }) => {
         {
       key: "status",
       header: "Status",
+       align:'center',
       render: (value, row) => {
         const isSuccess = row.success;
         return (
@@ -213,6 +215,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "execute_action",
       header: "Action",
+       align:'center',
       render: (value) => (
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
@@ -253,6 +256,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "contract_address",
       header: "Contract",
+       align:'center',
       render: (value) => (
         <Link
           to={`/contract/${value}`}
@@ -275,7 +279,7 @@ const AddressAssets = ({ address }) => {
     {
       key: "height",
       header: "Block",
-      align: "right",
+       align:'center',
       render: (value) => (
         <Link
           to={`/blocks/${value}`}

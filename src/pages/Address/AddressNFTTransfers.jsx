@@ -5,7 +5,7 @@ import { ArrowRight, Image } from "lucide-react";
 import { useGetNFTTransfersQuery } from "../NFTS/nftApiSlice";
 import { timeAgo } from "../../hooks/formats";
 
-import Table from "../../ui/Table";
+import Table, { TimeAgo } from "../../ui/Table";
 import Pagination from "../../ui/Pagination";
 import LoadingSkeleton from "../../ui/LoadingSkeleton";
 import ErrorState from "../../ui/ErrorState";
@@ -33,17 +33,19 @@ const AddressNFTTransfers = ({ address }) => {
     {
       key: "tx_hash",
       header: "Tx Hash",
+      align:'center',
       render: (value) => <TxHashCell hash={value} />,
     },
     {
       key: "action",
       header: "Action",
+      align:'center',
       render: (value) => <ActionBadge action={value} />,
     },
         {
           key: "height",
           header: "Height",
-          align: "right",
+          align:'center',
           render: (value) => (
             <Link
               to={`/blocks/${value}`}
@@ -56,14 +58,9 @@ const AddressNFTTransfers = ({ address }) => {
     {
       key: "timestamp",
       header: "Time",
-      align: "right",
+      aalign:'center',
       render: (value) => (
-        <span
-          className="text-slate-500 text-xs whitespace-nowrap"
-          title={value}
-        >
-          {timeAgo(value)}
-        </span>
+        <TimeAgo timestamp={(value)}/>
       ),
     },
    
@@ -71,6 +68,7 @@ const AddressNFTTransfers = ({ address }) => {
     {
       key: "from_address",
       header: "From",
+      align:'center',
       render: (value) => (
         <AddressCell address={value} label={!value ? "Mint" : ""} />
       ),
@@ -87,13 +85,14 @@ const AddressNFTTransfers = ({ address }) => {
     {
       key: "to_address",
       header: "To",
+      align:'center',
       render: (value) => <AddressCell address={value} />,
     },
 
         {
               key: "type",
               header: "Type",
-              align: "right",
+              align:'center',
               render: (value) => (
                 <Link
                   to={`/blocks/${value}`}
@@ -106,6 +105,7 @@ const AddressNFTTransfers = ({ address }) => {
      {
   key: "token_id",
   header: "Token",
+  align:'center',
   render: (value, row) => (
     <Link 
       to={`/nft/collection/${row.contract_address}`}

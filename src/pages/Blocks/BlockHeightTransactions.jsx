@@ -1,6 +1,6 @@
 // src/pages/blocks/BlockTransactions.jsx
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useGetBlockTransactionsQuery } from './blockApiSlice';
 import { useTheme } from '../../context/ThemeContext';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Table from '../../ui/Table';
 import CopyBtn from '../../ui/CopyButton';
+import { formatJMC } from '../../hooks/formats';
 
 const BlockTransactions = () => {
   const { theme } = useTheme();
@@ -123,13 +124,13 @@ const BlockTransactions = () => {
         if (!transfer) return <span className="text-xs text-gray-500 ">-</span>;
         
         return (
-          <a
-            href={`/address/${transfer.from_address}`}
+          <Link
+            to={`/address/${transfer.from_address}`}
             onClick={(e) => e.stopPropagation()}
             className={`text-xs font-semibold ${isDark ? 'text-[#00b2bd]' : 'text-[#006666]'} hover:underline`}
           >
             {truncateAddress(transfer.from_address)}
-          </a>
+          </Link>
         );
       },
     },
@@ -141,18 +142,18 @@ const BlockTransactions = () => {
         if (!transfer) return <span className="text-xs text-gray-500">-</span>;
         
         return (
-          <a
-            href={`/address/${transfer.to_address}`}
+          <Link
+            to={`/address/${transfer.to_address}`}
             onClick={(e) => e.stopPropagation()}
             className={`text-xs font-semibold ${isDark ? 'text-[#00b2bd]' : 'text-[#006666]'} hover:underline`}
           >
             {truncateAddress(transfer.to_address)}
-          </a>
+          </Link>
         );
       },
     },
     {
-      key: 'transfers',
+      key: 'amount_value',
       header: 'Value',
       align: 'right',
       render: (value) => {
@@ -163,7 +164,7 @@ const BlockTransactions = () => {
         
         return (
           <span className={`text-xs font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-            {(transfer.amount_value / 1000000).toFixed(6)} JMC
+            {(total_transfers)} JMC
           </span>
         );
       },
@@ -189,7 +190,7 @@ const BlockTransactions = () => {
       align: 'right',
       render: (value) => (
         <span className={`text-xs head font-semibold ${isDark ? 'text-gray-400' : 'text-gray-800'}`}>
-          {value}
+          {formatJMC(value)} JMC
         </span>
       ),
     },

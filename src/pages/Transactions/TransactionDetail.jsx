@@ -187,7 +187,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
         {/* Transaction Hash */}
         <DetailRow isDark={isDark} label="Transaction Hash" tooltip="Unique identifier for this transaction">
           <div className="flex items-center gap-3">
-            <span className={`font-mono text-sm break-all ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+            <span className={`font-semibold text-xs head break-all ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
               {tx.hash}
             </span>
             <CopyBtn text={tx.hash} isDark={isDark} />
@@ -213,7 +213,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
         <DetailRow isDark={isDark} label="Block" tooltip="Block number containing this transaction">
           <Link
             to={`/blocks/${tx.height}`}
-            className="text-sm text-[#00b2bd] hover:underline font-medium"
+            className="text-sm text-[#006666] hover:underline font-medium"
           >
             {tx.height?.toLocaleString()}
           </Link>
@@ -226,10 +226,10 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
           tooltip="Date and time of confirmation"
         >
           <div className="flex flex-row gap-1">
-            <span className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-800'}`}>
+            <span className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-800'}`}>
               {ago}
             </span>
-            <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-500'}`}>
+            <span className={`text-xs font-medium ${isDark ? 'text-gray-300' : 'text-gray-500'}`}>
               ({full})
             </span>
 
@@ -244,7 +244,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
           <div className="flex items-center gap-3">
             <Link
               to={`/address/${tx.from_address}`}
-              className="text-sm text-[#00b2bd] hover:underline font-medium break-all"
+              className="text-xs text-[#006666] hover:underline font-medium break-all"
             >
               {tx.from_address}
             </Link>
@@ -258,7 +258,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
             <div className="flex items-center gap-3">
               <Link
                 to={`/address/${tx.to_address}`}
-                className="text-sm text-[#00b2bd] hover:underline font-medium break-all"
+                className="text-xs text-[#006666] hover:underline font-medium break-all"
               >
                 {tx.to_address}
               </Link>
@@ -283,7 +283,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
 
                     <Link
                       to={`/address/${transfer.from_address}`}
-                      className="text-[10px] text-[#00b2bd] hover:underline font-semibold"
+                      className="text-[10px] text-[#006666] hover:underline font-semibold"
                       title={transfer.from_address}
                     >
                       {transfer.from_address}
@@ -302,7 +302,7 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
 
                     <Link
                       to={`/address/${transfer.to_address}`}
-                      className="text-[10px] text-[#00b2bd] hover:underline font-semibold"
+                      className="text-[10px] text-[#006666] hover:underline font-semibold"
                       title={transfer.to_address}
                     >
                       {transfer.to_address}
@@ -326,14 +326,14 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
 
         {/* Value */}
         <DetailRow isDark={isDark} label="Value" tooltip="Amount transferred">
-          <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+          <span className={`text-xs  head font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
             {amount} <span className={isDark ? 'text-gray-500' : 'text-gray-500'}>JMC</span>
           </span>
         </DetailRow>
 
         {/* Transaction Fee */}
         <DetailRow isDark={isDark} label="Transaction Fee" tooltip="Fee paid for this transaction">
-          <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+          <span className={`text-xs head font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
             {parseFee(tx.fee)} <span className={isDark ? 'text-gray-500' : 'text-gray-500'}>JMC</span>
           </span>
         </DetailRow>
@@ -341,11 +341,11 @@ const OverviewTab = ({ data, error, isLoading, isDark }) => {
         {/* Gas */}
         <DetailRow isDark={isDark} label="Gas Used / Wanted" tooltip="Gas consumed vs requested">
           <div className="flex items-center gap-2">
-            <span className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
+            <span className={`text-xs font-medium ${isDark ? 'text-gray-300' : 'text-gray-900'}`}>
               {tx.gas_used?.toLocaleString() || '0'}
             </span>
             <span className={`text-sm ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>/</span>
-            <span className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+            <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
               {tx.gas_wanted?.toLocaleString() || '0'}
             </span>
             {tx.gas_used && tx.gas_wanted && (
@@ -478,7 +478,7 @@ const InternalTransactionsTab = ({ data, error, isLoading, isDark }) => {
       render: (value) => (
         <Link
           to={`/address/${value}`}
-          className="text-xs text-[#00b2bd] hover:underline break-all"
+          className="text-xs text-[#006666] hover:underline break-all"
           title={value}
         >
           {value}
@@ -500,7 +500,7 @@ const InternalTransactionsTab = ({ data, error, isLoading, isDark }) => {
       render: (value) => (
         <Link
           to={`/address/${value}`}
-          className="text-xs text-[#00b2bd] hover:underline break-all"
+          className="text-xs text-[#006666] hover:underline break-all"
           title={value}
         >
           {value}
@@ -785,12 +785,12 @@ const DetailField = ({ label, value, mono, copy, link, isDark }) => (
       {link ? (
         <Link
           to={link}
-          className={`text-xs ${mono ? 'font-mono' : ''} text-[#00b2bd] hover:underline break-all`}
+          className={`text-xs ${mono ? 'font-semibold' : ''} text-[#006666] hover:underline break-all`}
         >
           {value}
         </Link>
       ) : (
-        <span className={`text-xs ${mono ? 'font-mono' : ''} ${isDark ? 'text-gray-400' : 'text-gray-600'} break-all`}>
+        <span className={`text-xs ${mono ? 'font-semibold' : ''} ${isDark ? 'text-gray-400' : 'text-gray-600'} break-all`}>
           {value}
         </span>
       )}

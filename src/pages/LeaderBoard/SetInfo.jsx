@@ -516,6 +516,7 @@ const ValidatorsDetails = () => {
     {
       key: 'age',
       header: 'Age',
+       align:"center",
       render: (value) => (
         <span className={`text-sm font-regular ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
           {value}
@@ -526,6 +527,7 @@ const ValidatorsDetails = () => {
       key: 'height',
       header: 'Block Height',
       width: '120px',
+      align:"center",
       render: (value) => (
         <Link
           to={`/blocks/${value}`}

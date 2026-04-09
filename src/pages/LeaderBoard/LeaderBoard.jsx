@@ -110,6 +110,7 @@ const ValidatorsList = ({ onSelectValidator }) => {
       key: 'rank',
       header: 'Rank',
       width: '80px',
+       align:"center",
       render: (value) => {
         return (
           <div className="">
@@ -121,11 +122,12 @@ const ValidatorsList = ({ onSelectValidator }) => {
           </div>
         );
       },
-     
+     align:"center",
     },
    {
   key: 'moniker',
   header: 'Validator',
+  align:"center",
   render: (value, row) => (
     <Link 
       to={`/address/${row.operator_address}`}
@@ -152,7 +154,7 @@ const ValidatorsList = ({ onSelectValidator }) => {
           {parseInt(value || 0).toLocaleString() }%
         </span>
       ),
-      align: 'right',
+       align:"center",
     },
 
     {
@@ -165,21 +167,18 @@ const ValidatorsList = ({ onSelectValidator }) => {
         >
           {parseInt(value || 0).toLocaleString()}
         </Link>
-        // <span className={`text-sm font-semibold ${isDark ? 'text-[#006666]' : 'text-[#006666]'}`}>
-        //   {parseInt(value || 0).toLocaleString()}
-        // </span>
       ),
-      align: 'right',
+      align:"center",
     },
     {
       key: 'tokens',
       header: 'STAKE',
+       align:"center",
       render: (value) => (
         <span className={`text-sm font-semibold head ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-          {value} JMC
+          {(value/1000000)} JMC
         </span>
       ),
-      align: 'right',
     },
     
     {
