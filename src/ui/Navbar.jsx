@@ -11,17 +11,15 @@
 //   Users,
 //   Vote,
 //   Image,
-//   FileCode,
 //   Layers,
 //   Award,
 //   TrendingUp,
 //   Repeat,
 //   Send,
 //   Sparkles,
-//   Wallet,
 // } from "lucide-react";
 // import { useTheme } from "../context/ThemeContext";
-// import { useLazySearchQuery } from "../pages/Home/homeApiSlice"; // Add this import
+// import { useLazySearchQuery } from "../pages/Home/homeApiSlice";
 // import WalletConnect from "../pages/socket/WalletConnect";
 
 // const Navbar = () => {
@@ -35,40 +33,8 @@
 //   const [searchQuery, setSearchQuery] = useState("");
 //   const navRef = useRef(null);
 //   const hoverTimeoutRef = useRef(null);
-// const [isWalletConnected, setIsWalletConnected] = useState(false);
-// const [walletAddress, setWalletAddress] = useState("");
 //   const isDark = theme === "dark";
-// const connectWallet = async () => {
-//   try {
-//     if (typeof window.ethereum !== 'undefined') {
-//       // Request account access
-//       const accounts = await window.ethereum.request({ 
-//         method: 'eth_requestAccounts' 
-//       });
-      
-//       const address = accounts[0];
-//       setWalletAddress(address);
-//       setIsWalletConnected(true);
-      
-//       console.log('Wallet connected:', address);
-//     } else {
-//       alert('Please install MetaMask or another Web3 wallet!');
-//     }
-//   } catch (error) {
-//     console.error('Failed to connect wallet:', error);
-//   }
-// };
 
-// const disconnectWallet = () => {
-//   setWalletAddress("");
-//   setIsWalletConnected(false);
-// };
-
-// const truncateAddress = (address) => {
-//   if (!address) return "";
-//   return `${address.slice(0, 6)}...${address.slice(-4)}`;
-// };
-//   // RTK Query search hook
 //   const [triggerSearch, { isLoading: isSearching }] = useLazySearchQuery();
 
 //   useEffect(() => {
@@ -100,7 +66,6 @@
 //     setHoveredDropdown(null);
 //   };
 
-//   // Updated search handler
 //   const handleSearch = async (e) => {
 //     e.preventDefault();
 //     if (!searchQuery.trim()) return;
@@ -119,19 +84,16 @@
 //         } else if (type.is_a_block_number) {
 //           navigate(`/blocks/${firstResult.value}`);
 //         } else {
-//           // Fallback to address
 //           navigate(`/address/${firstResult.value}`);
 //         }
 //       } else {
-//         // No results found - show error or redirect to search page
 //         console.log("No results found");
 //         navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
 //       }
 
-//       setSearchQuery(""); // Clear search after navigation
+//       setSearchQuery("");
 //     } catch (err) {
 //       console.error("Search failed:", err);
-//       // Fallback to basic search page on error
 //       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
 //       setSearchQuery("");
 //     }
@@ -217,10 +179,10 @@
 //       <div 
 //         className="navbar-container"
 //         style={{ 
-//           maxWidth: "1500px", 
+//           maxWidth: "100%",
 //           margin: "0 auto", 
-//           padding: "0 clamp(16px, 4vw, 24px)",
-//           width: "100%"
+//           padding: "0 12px",
+//           width: "100%",
 //         }}
 //       >
 //         <div 
@@ -229,18 +191,20 @@
 //             display: "flex", 
 //             alignItems: "center", 
 //             height: "64px", 
-//             gap: "clamp(16px, 3vw, 32px)",
-//             justifyContent: "space-between"
+//             gap: "8px",
+//             justifyContent: "space-between",
+//             width: "100%",
 //           }}
 //         >
 
 //           {/* Logo */}
 //           <button
 //             onClick={() => go("/")}
+//             className="logo-button"
 //             style={{
 //               display: "flex",
 //               alignItems: "center",
-//               gap: "12px",
+//               gap: "8px",
 //               background: "none",
 //               border: "none",
 //               cursor: "pointer",
@@ -303,9 +267,9 @@
 //             style={{ 
 //               display: "flex", 
 //               alignItems: "center", 
-//               gap: "clamp(2px, 0.5vw, 4px)", 
-//               flex: 1,
-//               justifyContent: "center"
+//               gap: "2px", 
+//               flex: "0 1 auto",
+//               minWidth: 0,
 //             }}
 //           >
 //             {navItems.map((item) =>
@@ -317,7 +281,7 @@
 //                     display: "flex",
 //                     alignItems: "center",
 //                     gap: "6px",
-//                     padding: "8px clamp(12px, 1vw, 16px)",
+//                     padding: "8px 12px",
 //                     borderRadius: "8px",
 //                     fontSize: "14px",
 //                     fontWeight: "500",
@@ -328,6 +292,7 @@
 //                     transition: "all 0.2s ease",
 //                     position: "relative",
 //                     whiteSpace: "nowrap",
+//                     flexShrink: 0,
 //                   }}
 //                   onMouseEnter={(e) => {
 //                     if (!isActive(item.path)) {
@@ -362,7 +327,7 @@
 //               ) : (
 //                 <div
 //                   key={item.key}
-//                   style={{ position: "relative" }}
+//                   style={{ position: "relative", flexShrink: 0 }}
 //                   onMouseEnter={() => handleMouseEnter(item.key)}
 //                   onMouseLeave={handleMouseLeave}
 //                 >
@@ -371,7 +336,7 @@
 //                       display: "flex",
 //                       alignItems: "center",
 //                       gap: "4px",
-//                       padding: "8px clamp(12px, 1vw, 16px)",
+//                       padding: "8px 12px",
 //                       borderRadius: "8px",
 //                       fontSize: "14px",
 //                       fontWeight: "500",
@@ -503,10 +468,10 @@
 //               display: "flex", 
 //               alignItems: "center", 
 //               gap: "8px",
-//               flexShrink: 0
+//               flexShrink: 0,
 //             }}
 //           >
-//             {/* Desktop Search Bar with API Integration */}
+//             {/* Desktop Search Bar */}
 //             <form 
 //               onSubmit={handleSearch} 
 //               className="desktop-search" 
@@ -531,7 +496,7 @@
 //                 disabled={isSearching}
 //                 className="search-input"
 //                 style={{
-//                   width: "clamp(200px, 20vw, 300px)",
+//                   width: "220px",
 //                   padding: "8px 36px 8px 36px",
 //                   borderRadius: "10px",
 //                   border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
@@ -592,132 +557,45 @@
 //               )}
 //             </form>
 
-//             {/* Network Badge */}
-//             {/* <div
-//               className="network-badge"
+//             {/* Wallet Connect - Desktop Only */}
+//             <div className="desktop-wallet">
+//               <WalletConnect/>
+//             </div>
+
+//             {/* Theme Toggle - Desktop */}
+//             <button
+//               onClick={toggleTheme}
+//               className="desktop-theme-toggle"
 //               style={{
+//                 padding: "8px",
+//                 borderRadius: "8px",
+//                 background: "none",
+//                 border: "none",
+//                 cursor: "pointer",
+//                 color: isDark ? "#9ca3af" : "#6b7280",
 //                 display: "flex",
 //                 alignItems: "center",
-//                 gap: "6px",
-//                 padding: "6px 12px",
-//                 borderRadius: "8px",
-//                 backgroundColor: "rgba(0, 178, 189, 0.1)",
-//                 border: "1px solid rgba(0, 178, 189, 0.2)",
+//                 justifyContent: "center",
+//                 transition: "all 0.2s ease",
+//               }}
+//               onMouseEnter={(e) => {
+//                 e.currentTarget.style.backgroundColor = isDark ? "rgba(255,255,255,0.05)" : "#f5f7f9";
+//               }}
+//               onMouseLeave={(e) => {
+//                 e.currentTarget.style.backgroundColor = "transparent";
 //               }}
 //             >
-//               <span
-//                 style={{
-//                   width: "8px",
-//                   height: "8px",
-//                   borderRadius: "50%",
-//                   backgroundColor: "#00b2bd",
-//                   animation: "pulse 2s infinite",
-//                 }}
-//               />
-//               <span style={{ fontSize: "12px", fontWeight: "500", color: "#00b2bd", whiteSpace: "nowrap" }}>
-//                 Mainnet
-//               </span>
-//             </div> */}
-// {/* Wallet Connect Button - Desktop */}
-// {/* <div className="wallet-button">
-//   {!isWalletConnected ? (
-//     <button
-//       onClick={connectWallet}
-//       style={{
-//         display: "flex",
-//         alignItems: "center",
-//         gap: "8px",
-//         padding: "8px 8px",
-//         borderRadius: "25px",
-//         backgroundColor: "#00b2bd",
-//         border: "none",
-//         cursor: "pointer",
-//         transition: "all 0.2s ease",
-//         color: "white",
-//         fontWeight: "500",
-//         fontSize: "12px",
-//         whiteSpace: "nowrap",
-//       }}
-//       onMouseEnter={(e) => {
-//         e.currentTarget.style.backgroundColor = "#009da7";
-//         e.currentTarget.style.transform = "translateY(-1px)";
-//         e.currentTarget.style.boxShadow = "0 4px 12px rgba(0, 178, 189, 0.3)";
-//       }}
-//       onMouseLeave={(e) => {
-//         e.currentTarget.style.backgroundColor = "#00b2bd";
-//         e.currentTarget.style.transform = "translateY(0)";
-//         e.currentTarget.style.boxShadow = "none";
-//       }}
-//     >
-//       <Wallet size={14} />
-//       <span className="wallet-text">Connect Wallet</span>
-//     </button>
-//   ) : (
-//     <div
-//       style={{
-//         display: "flex",
-//         alignItems: "center",
-//         gap: "8px",
-//         padding: "8px 12px",
-//         borderRadius: "25px",
-//         backgroundColor: isDark ? "rgba(0, 178, 189, 0.1)" : "rgba(0, 178, 189, 0.05)",
-//         border: `1px solid ${isDark ? "rgba(0, 178, 189, 0.3)" : "rgba(0, 178, 189, 0.2)"}`,
-//       }}
-//     >
-//       <span
-//         style={{
-//           width: "8px",
-//           height: "8px",
-//           borderRadius: "50%",
-//           backgroundColor: "#00b2bd",
-//           animation: "pulse 2s infinite",
-//         }}
-//       />
-//       <code
-//         style={{
-//           fontSize: "13px",
-//           fontWeight: "500",
-//           color: "#00b2bd",
-//           fontFamily: "monospace",
-//         }}
-//       >
-//         {truncateAddress(walletAddress)}
-//       </code>
-//       <button
-//         onClick={disconnectWallet}
-//         style={{
-//           padding: "4px 8px",
-//           borderRadius: "6px",
-//           backgroundColor: "transparent",
-//           border: "none",
-//           cursor: "pointer",
-//           color: isDark ? "#9ca3af" : "#6b7280",
-//           fontSize: "11px",
-//           transition: "all 0.2s ease",
-//         }}
-//         onMouseEnter={(e) => {
-//           e.currentTarget.style.backgroundColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)";
-//           e.currentTarget.style.color = "#ef4444";
-//         }}
-//         onMouseLeave={(e) => {
-//           e.currentTarget.style.backgroundColor = "transparent";
-//           e.currentTarget.style.color = isDark ? "#9ca3af" : "#6b7280";
-//         }}
-//       >
-//         <X size={12} />
-//       </button>
-//     </div>
-//   )}
-// </div> */}
-// <WalletConnect/>
+//               {isDark ? <Sun size={18} /> : <Moon size={18} />}
+//             </button>
+
 //             {/* Mobile Menu Toggle */}
 //             <button
 //               onClick={() => setMobileOpen(!mobileOpen)}
 //               className="mobile-toggle"
 //               style={{
 //                 display: "none",
-//                 padding: "10px",
-//                 borderRadius: "10px",
+//                 padding: "8px",
+//                 borderRadius: "8px",
 //                 background: "none",
 //                 border: "none",
 //                 cursor: "pointer",
@@ -757,7 +635,12 @@
 //               padding: "16px",
 //             }}
 //           >
-//             {/* Mobile Search with API Integration */}
+//             {/* Mobile Wallet Section */}
+//             <div style={{ marginBottom: "16px" }}>
+//               <WalletConnect />
+//             </div>
+
+//             {/* Mobile Search */}
 //             <form onSubmit={handleSearch} style={{ position: "relative", marginBottom: "16px" }}>
 //               <Search
 //                 size={16}
@@ -975,31 +858,6 @@
 //                   />
 //                 </div>
 //               </button>
-
-//               <div
-//                 style={{
-//                   display: "flex",
-//                   alignItems: "center",
-//                   gap: "8px",
-//                   padding: "12px 16px",
-//                   borderRadius: "12px",
-//                   backgroundColor: "rgba(0, 178, 189, 0.05)",
-//                   border: "1px solid rgba(0, 178, 189, 0.1)",
-//                 }}
-//               >
-//                 <span
-//                   style={{
-//                     width: "8px",
-//                     height: "8px",
-//                     borderRadius: "50%",
-//                     backgroundColor: "#00b2bd",
-//                   }}
-//                 />
-//                 <span style={{ fontSize: "14px", fontWeight: "500", color: "#00b2bd" }}>Mainnet</span>
-//                 <span style={{ fontSize: "12px", color: isDark ? "#6b7280" : "#9ca3af", marginLeft: "auto" }}>
-//                   Connected
-//                 </span>
-//               </div>
 //             </div>
 //           </div>
 //         </>
@@ -1011,33 +869,7 @@
 //           50% { opacity: 0.5; }
 //         }
         
-//         @media (max-width: 1280px) {
-//           .navbar-container {
-//             padding: 0 20px !important;
-//           }
-//           .search-input {
-//             width: clamp(180px, 18vw, 240px) !important;
-//           }
-//         }
-        
-//         @media (max-width: 1023px) {
-//           .desktop-nav {
-//             display: none !important;
-//           }
-//           .desktop-search {
-//             display: none !important;
-//           }
-//           .logo-text {
-//             display: none !important;
-//           }
-//           .network-badge {
-//             display: none !important;
-//           }
-//           .mobile-toggle {
-//             display: flex !important;
-//           }
-//         }
-        
+//         /* Desktop */
 //         @media (min-width: 1024px) {
 //           .desktop-nav {
 //             display: flex !important;
@@ -1045,23 +877,84 @@
 //           .desktop-search {
 //             display: block !important;
 //           }
-//           .logo-text {
+//           .desktop-wallet {
 //             display: block !important;
 //           }
-//           .network-badge {
+//           .desktop-theme-toggle {
 //             display: flex !important;
+//           }
+//           .logo-text {
+//             display: block !important;
 //           }
 //           .mobile-toggle {
 //             display: none !important;
 //           }
 //         }
 
-//         @media (min-width: 1500px) {
+//         /* Large Desktop */
+//         @media (min-width: 1440px) {
+//           .search-input {
+//             width: 280px !important;
+//           }
 //           .navbar-content {
-//             gap: 32px !important;
+//             gap: 16px !important;
 //           }
 //           .desktop-nav {
 //             gap: 4px !important;
+//           }
+//         }
+        
+//         /* Standard Desktop */
+//         @media (min-width: 1024px) and (max-width: 1439px) {
+//           .search-input {
+//             width: 200px !important;
+//           }
+//           .navbar-content {
+//             gap: 12px !important;
+//           }
+//           .desktop-nav {
+//             gap: 2px !important;
+//           }
+//         }
+        
+//         /* Tablet/Mobile */
+//         @media (max-width: 1023px) {
+//           .desktop-nav {
+//             display: none !important;
+//           }
+//           .desktop-search {
+//             display: none !important;
+//           }
+//           .desktop-wallet {
+//             display: none !important;
+//           }
+//           .desktop-theme-toggle {
+//             display: none !important;
+//           }
+//           .logo-text {
+//             display: none !important;
+//           }
+//           .mobile-toggle {
+//             display: flex !important;
+//           }
+//           .navbar-container {
+//             padding: 0 8px !important;
+//           }
+//           .navbar-content {
+//             gap: 6px !important;
+//           }
+//         }
+
+//         /* Small Mobile */
+//         @media (max-width: 480px) {
+//           .navbar-container {
+//             padding: 0 6px !important;
+//           }
+//           .navbar-content {
+//             gap: 4px !important;
+//           }
+//           .logo-button {
+//             gap: 6px !important;
 //           }
 //         }
 //       `}</style>
@@ -1110,6 +1003,9 @@ const Navbar = () => {
   const isDark = theme === "dark";
 
   const [triggerSearch, { isLoading: isSearching }] = useLazySearchQuery();
+
+  // ✅ Check if current page is home
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 10);
@@ -1545,91 +1441,93 @@ const Navbar = () => {
               flexShrink: 0,
             }}
           >
-            {/* Desktop Search Bar */}
-            <form 
-              onSubmit={handleSearch} 
-              className="desktop-search" 
-              style={{ position: "relative" }}
-            >
-              <Search
-                size={16}
-                style={{
-                  position: "absolute",
-                  left: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "#9ca3af",
-                  pointerEvents: "none",
-                }}
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Address / Tx / Block..."
-                disabled={isSearching}
-                className="search-input"
-                style={{
-                  width: "220px",
-                  padding: "8px 36px 8px 36px",
-                  borderRadius: "10px",
-                  border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
-                  backgroundColor: isDark ? "#1f2937" : "#f5f7f9",
-                  color: isDark ? "#ffffff" : "#111827",
-                  fontSize: "13px",
-                  outline: "none",
-                  transition: "all 0.2s ease",
-                  opacity: isSearching ? 0.6 : 1,
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = "#00b2bd";
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = isDark ? "#374151" : "#e5e7eb";
-                }}
-              />
-              {searchQuery && !isSearching && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
+            {/* Desktop Search Bar - ✅ Hide on home page */}
+            {!isHomePage && (
+              <form 
+                onSubmit={handleSearch} 
+                className="desktop-search" 
+                style={{ position: "relative" }}
+              >
+                <Search
+                  size={16}
                   style={{
                     position: "absolute",
-                    right: "8px",
+                    left: "12px",
                     top: "50%",
                     transform: "translateY(-50%)",
-                    padding: "4px",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
                     color: "#9ca3af",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "8px",
+                    pointerEvents: "none",
                   }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                  }}
-                >
-                  <X size={14} />
-                </button>
-              )}
-              {isSearching && (
-                <div
+                />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Address / Tx / Block..."
+                  disabled={isSearching}
+                  className="search-input"
                   style={{
-                    position: "absolute",
-                    right: "8px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
+                    width: "220px",
+                    padding: "8px 36px 8px 36px",
+                    borderRadius: "10px",
+                    border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+                    backgroundColor: isDark ? "#1f2937" : "#f5f7f9",
+                    color: isDark ? "#ffffff" : "#111827",
+                    fontSize: "13px",
+                    outline: "none",
+                    transition: "all 0.2s ease",
+                    opacity: isSearching ? 0.6 : 1,
                   }}
-                >
-                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#00b2bd] border-t-transparent"></div>
-                </div>
-              )}
-            </form>
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#00b2bd";
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = isDark ? "#374151" : "#e5e7eb";
+                  }}
+                />
+                {searchQuery && !isSearching && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    style={{
+                      position: "absolute",
+                      right: "8px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      padding: "4px",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      color: "#9ca3af",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "8px",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }}
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+                {isSearching && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "8px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-[#00b2bd] border-t-transparent"></div>
+                  </div>
+                )}
+              </form>
+            )}
 
             {/* Wallet Connect - Desktop Only */}
             <div className="desktop-wallet">
@@ -1714,49 +1612,51 @@ const Navbar = () => {
               <WalletConnect />
             </div>
 
-            {/* Mobile Search */}
-            <form onSubmit={handleSearch} style={{ position: "relative", marginBottom: "16px" }}>
-              <Search
-                size={16}
-                style={{
-                  position: "absolute",
-                  left: "12px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "#9ca3af",
-                }}
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search address, tx, block..."
-                disabled={isSearching}
-                style={{
-                  width: "100%",
-                  padding: "12px 40px 12px 40px",
-                  borderRadius: "12px",
-                  border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
-                  backgroundColor: isDark ? "#1f2937" : "#f5f7f9",
-                  color: isDark ? "#ffffff" : "#111827",
-                  fontSize: "14px",
-                  outline: "none",
-                  opacity: isSearching ? 0.6 : 1,
-                }}
-              />
-              {isSearching && (
-                <div
+            {/* Mobile Search - ✅ Hide on home page */}
+            {!isHomePage && (
+              <form onSubmit={handleSearch} style={{ position: "relative", marginBottom: "16px" }}>
+                <Search
+                  size={16}
                   style={{
                     position: "absolute",
-                    right: "12px",
+                    left: "12px",
                     top: "50%",
                     transform: "translateY(-50%)",
+                    color: "#9ca3af",
                   }}
-                >
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#00b2bd] border-t-transparent"></div>
-                </div>
-              )}
-            </form>
+                />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search address, tx, block..."
+                  disabled={isSearching}
+                  style={{
+                    width: "100%",
+                    padding: "12px 40px 12px 40px",
+                    borderRadius: "12px",
+                    border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`,
+                    backgroundColor: isDark ? "#1f2937" : "#f5f7f9",
+                    color: isDark ? "#ffffff" : "#111827",
+                    fontSize: "14px",
+                    outline: "none",
+                    opacity: isSearching ? 0.6 : 1,
+                  }}
+                />
+                {isSearching && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: "12px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                    }}
+                  >
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#00b2bd] border-t-transparent"></div>
+                  </div>
+                )}
+              </form>
+            )}
 
             {/* Mobile Nav Items */}
             <nav style={{ display: "flex", flexDirection: "column", gap: "4px" }}>

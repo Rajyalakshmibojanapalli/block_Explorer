@@ -82,7 +82,7 @@ const Table = ({
   return (
     <div
       className={`
-        overflow-hidden
+        overflow-auto scrollbar
         ${rounded ? 'rounded-lg' : ''}
         ${bordered ? (isDark ? 'border border-[#f8f9f9]' : 'border border-[#f8f9f9]') : ''}
         ${isDark ? 'bg-gray-900' : 'bg-white'}
@@ -177,7 +177,7 @@ const Table = ({
 
       {/* Table */}
       {data.length > 0 ? (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto no-scrollbar">
           <table className="w-full">
             <thead>
               <tr className={`

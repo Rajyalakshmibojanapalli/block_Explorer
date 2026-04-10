@@ -345,9 +345,6 @@ const LatestBlocks = () => {
 
 export default LatestBlocks;
 
-// ═══════════════════════════════════════════════════════════
-// TOP NAV COMPONENT
-// ═══════════════════════════════════════════════════════════
 
 const TopNav = ({ isDark, navigate }) => (
   <div className={`border-b ${isDark ? 'bg-[#161b22] border-[#30363d]' : 'bg-white border-gray-200'}`}>

@@ -6,30 +6,44 @@ import Footer from "./ui/Footer";
 
 // Pages
 import Home from "./pages/Home/Home";
-import Proposals from "./pages/proposals/Proposals";
-import ProposalDetail from "./pages/proposals/ProposalDetails";
+//blocks
 import Blocks from "./pages/Blocks/Blocks";
 import LatestBlocks from "./pages/Blocks/LatestBlocks";
 import BlockTransactions from "./pages/Blocks/BlockHeightTransactions"
+
+//proposals
+import Proposals from "./pages/proposals/Proposals";
+import ProposalDetail from "./pages/proposals/ProposalDetails";
+
+//transactions
 import Transactions from "./pages/Transactions/Trsansaction";
 import TransactionDetailPage from "./pages/Transactions/TransactionDetailPage";
+
+//validators
 import Validators from "./pages/LeaderBoard/LeaderBoard";
 import ValidatorDetail from "./pages/LeaderBoard/SetInfo";
+
+//nfts
 import TopNft from "./pages/NFTS/TopNfts";
 import NFTCollectionDetails from "./pages/NFTS/NFTCollectionDetails";
 import TopMints from "./pages/NFTS/TopMints";
 import LatestTransfer from "./pages/NFTS/LatestTransfer";
 import LatestTrends from "./pages/NFTS/LatestTrends";
 import LatestMints from "./pages/NFTS/LatestMints";
+
+//address details
 import AddressDetails from "./pages/Address/AddressDetails";
+
+//Not found 
+import NotFound from "./ui/NotFound"
 
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen ">
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 overflow-auto no-scrollbar">
             <Routes>
               {/* Home */}
               <Route path="/" element={<Home />} />
@@ -73,7 +87,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} /> */}
 
               {/* 404 */}
-              {/* <Route path="*" element={<NotFound />} /> */}
+              <Route path="*" element={<NotFound />} />z
             </Routes>
           </main>
           <Footer />

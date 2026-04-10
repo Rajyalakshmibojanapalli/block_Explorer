@@ -260,17 +260,6 @@ const BlockTransactions = () => {
   );
 };
 
-// Stat Box Component
-const StatBox = ({ label, value, isDark }) => (
-  <div className={`p-4 rounded-lg ${isDark ? 'bg-[#161b22]' : 'bg-gray-50'}`}>
-    <p className={`text-xs mb-1 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-      {label}
-    </p>
-    <p className={`text-xl font-bold ${isDark ? 'text-white' : 'text-[#1f2328]'}`}>
-      {value || '0'}
-    </p>
-  </div>
-);
 
 // Loading Skeleton
 const LoadingSkeleton = ({ isDark }) => (
